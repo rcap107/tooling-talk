@@ -1,0 +1,556 @@
+---
+title: "Tools & tips I wish I knew when I started my PhD"
+subtitle: "A hands-on tour, with live demos"
+author: "Riccardo Cappuzzo"
+date: 2026-10-22
+format:
+  revealjs:
+    theme: default
+    slide-number: true
+    scrollable: true
+    transition: fade
+    highlight-style: a11y
+    footer: "Tools & tips for researchers"
+    smaller: true
+css: styles.css
+---
+
+## `whoami`
+
+- PhD in computer science, postdoc in SODA, now research engineer working on skrub
+- Someone who lost a lot of time to avoidable pain
+- **Everything here is personal experience. If there is a better way, do tell me.**
+
+::: {.notes}
+- Set expectations: this is a buffet, not a prescription.
+- Ask people to write down 2–3 things they want to try — they'll forget the rest.
+- Demos are live and might fail; that's part of the charm (and proof it's real).
+:::
+
+## Two laws to set the mood {.smaller}
+
+> The best way to get the right answer on the Internet is not to ask a question; it's to post the wrong answer.
+> — **Cunningham's Law**
+
+- Today I will say wrong things on purpose[^1]. **Correct me.**
+
+[^1]: Ok, not *on purpose*.
+
+::: {.notes}
+Cunningham's Law: invite the audience to heckle. It makes the session interactive and you get to learn from them too.
+:::
+
+## The other law
+
+> Premature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3%.
+> — **Knuth**
+
+- Same for tooling: don't build a perfect pipeline on day 1.
+- **Do** notice the critical 3%: the things you do 100×/day
+
+  - searching files
+  - navigating directories
+  - installing things
+  - "wait, which environment was this?"
+
+## Why bother?
+
+- Your analysis will be re-run **6 months later**, by you, on a deadline
+- Reviewers / collaborators / your future self need **reproducibility**
+- Time saved **compounds**: 10 min/day ≈ **40 hours/year**
+
+::: {.tip}
+The goal is not more tools. The goal is **fewer keystrokes for the things you do constantly**.
+:::
+
+## Roadmap
+
+```{mermaid}
+%%| fig-height: 3
+flowchart LR
+    A[The<br>shell] --> B[Reproducible<br>Python]
+    B --> C[Git]
+    C --> D[Remote &<br>long jobs]
+    D --> G[vim,<br>just enough]
+    G --> E[Writing &<br>diagrams]
+    E --> F[AI]
+```
+
+::: {.notes}
+Meta-moment: this diagram is *Mermaid, written as text, inside these slides*. We'll come back to that in Part 5. Mention it casually now.
+:::
+
+# Part 1 — The shell
+
+## Your shell is your home: zsh
+
+- Every PhD student lives in a terminal. **Decorate it.**
+- Oh My Zsh: themes + plugins, zero effort
+- Aliases: make the frequent thing the short thing
+
+```bash
+alias ll='ls -lah'
+alias gs='git status'
+alias gl='git log --oneline -10'
+alias python='python3'
+```
+
+Some of the commands I use on a daily basis:
+```bash
+alias dc="pixi run -e doc build-doc-quick"
+alias odo="open ~/work/skrub/doc/_build/html/index.html"
+alias dtest='pixi run -e dev pytest -doctest-modules skrub skrub/_docs/modules --ignore-glob="*/test_*.py" --doctest-glob="*.rst"' --ignore-glob="doc/*"
+```
+
+
+::: {.notes}
+- Show `~/.zshrc` briefly — don't read the whole file.
+- Emphasize: aliases are personal. Steal mine, then make your own.
+:::
+
+## 🎬 Demo 1 — Recall & navigate {.demo}
+
+1. `Ctrl+R` (fuzzy history search via fzf)
+2. `z myproj` — jump anywhere (zoxide)
+3. One alias doing something tedious
+
+::: {.notes}
+**Demo script (to be built):**
+- Type `Ctrl+R`, then `rsync` — history found instantly. "How many of you scroll `history | grep`?"
+- `z work` → jumps to deeply nested project dir. "No more `cd ../../../../`".
+- End with: these two tools cost ~10 min to install, save time every single day.
+:::
+
+## Finding things: ripgrep
+
+- `grep` on steroids: **fast**, respects `.gitignore`, colourful
+
+```bash
+rg "def calculate_mean"            # search the repo
+rg -i "todo"                       # case-insensitive
+rg "import numpy" --type py        # only Python files
+rg "error" -B 3 -A 3               # with context
+rg "TODO|FIXME" --count            # how guilty am I?
+```
+
+::: {.tip}
+Pair it with `fzf`: `Ctrl+T` inserts any file path, fuzzy-matched.
+:::
+
+## Reading things: bat
+
+- `cat` with syntax highlighting, line numbers, git gutter
+
+```bash
+bat script.py
+bat script.py --line-range 10:20
+git diff | bat          # readable diffs
+```
+
+::: {.notes}
+Demo 2 combines ripgrep + bat: search for a function, then page to it. The point: you stop opening an IDE to find one line.
+:::
+
+## 🎬 Demo 2 — Search & read {.demo}
+
+1. `rg "TODO"` across a messy project
+2. `rg "learning_rate" --type py -C 2`
+3. Pipe a file / diff into `bat`
+
+::: {.notes}
+**Demo script (to be built):**
+- Use a deliberately messy sample repo (several dirs, ignored files, TODOs).
+- First with plain `grep` for 5 painful seconds, then `rg` — instant.
+- Close with: "grep just became a read-only habit."
+:::
+
+## Honourable mentions (30 seconds each)
+
+- **`open .`** — open anything (folder, file, URL) from the shell
+- **nnn** — terminal file manager, keyboard-only
+- **Raycast** — Spotlight on steroids: clipboard history, window management
+- **Custom search engines** — `z` + `Tab` in the browser → search arXiv directly
+
+::: {.notes}
+Skip fast; these are one-liners. If someone asks later, they're in the repo.
+:::
+
+# Part 2 — Long jobs & remote machines
+
+## tmux: your terminal, immortal
+
+- **Sessions** survive SSH disconnects, laptop sleeps, crashed VPNs
+- Split panes: run training + watch logs + edit, in one window
+
+```bash
+tmux new -s training     # start a session
+Ctrl-a d                 # detach (job keeps running!)
+tmux attach -t training  # reattach from anywhere
+```
+
+::: {.notes}
+Sell it with the pain: "you SSH to the cluster, start a 6-hour training, your laptop falls asleep → job dead. tmux makes that impossible."
+:::
+
+## 🎬 Demo 3 — tmux {.demo}
+
+1. Split panes: run a "long job" + `watch` its log
+2. Detach, close terminal entirely, reattach → still running
+3. Copy text from tmux to system clipboard
+
+::: {.notes}
+**Demo script (to be built):**
+- Start a fake training script that prints progress to a log.
+- Split: top = log via `tail -f`, bottom = shell.
+- Detach, **close the whole terminal app** (dramatic!), reopen, reattach.
+- Copy a loss value from the log with tmux copy-mode → paste in a chat window.
+:::
+
+## SSH without pain
+
+- Key pairs (`ed25519`) → no more passwords
+- `~/.ssh/config` → nicknames for clusters
+
+```ssh-config
+Host inria
+     hostname ssh.saclay.inria.fr
+     user rcappuzz
+
+Host drago
+    hostname %h.saclay.inria.fr
+    ProxyCommand ssh inria /usr/bin/nc %h %p
+    user rcappuzz
+    ForwardAgent yes
+```
+
+Then simply: `ssh margaret`
+
+## rsync > scp
+
+- Copies **only what changed** → resumable, cheap
+
+```bash
+rsync -avz --exclude='*.npy' results/ drago:~/project/results/
+rsync -avz --partial drago:~/big_output.h5 .
+```
+
+## SLURM in one slide
+
+- Cluster jobs = a shell script with `#SBATCH` headers
+
+```bash
+#SBATCH --job-name=baseline
+#SBATCH --time=24:00:00
+#SBATCH --gres=gpu:1
+python train.py --config configs/baseline.yaml
+```
+
+```bash
+sbatch train.slurm    # submit
+squeue -u $USER       # check
+```
+
+::: {.notes}
+Point people to the repo for full templates. Don't teach SLURM here — just remove the "cluster stuff is scary" feeling.
+:::
+
+# Part 3 — Reproducible Python
+
+## The pain everyone knows
+
+> "It works on my machine" — a paper's figure is not reproducible 6 months later
+
+- Environments rot: OS updates, CUDA updates, "pip install" at 2am
+- **The environment is part of the method section**
+
+## pixi: environments as files
+
+- One `pixi.toml` = python version + deps + **tasks**, cross-platform
+- Conda ecosystem (CUDA, system libs) with a lockfile
+
+```toml
+[dependencies]
+python = "3.11.*"
+numpy  = ">=1.24,<2"
+ruff   = ">=0.1"
+
+[tasks]
+train = "python train.py"
+test  = "pytest tests/"
+```
+
+```bash
+pixi run train        # just works, everywhere
+```
+
+## uv: gotta go fast 🏎️
+
+- pip/venv/pip-tools in one Rust binary, **10–100× faster**
+
+```bash
+uv init my-paper-analysis && cd my-paper-analysis
+uv add numpy pandas matplotlib
+uv run python analysis.py     # right env, every time
+```
+
+::: {.tip}
+Pragmatic rule of thumb: **uv** for pure-Python projects, **pixi** when you need conda packages (CUDA, geospatial stacks).
+:::
+
+## 🎬 Demo 4 — env in 10 seconds {.demo}
+
+1. `uv init` + `uv add` a stack → watch it finish before you blink
+2. `uv run` inside the project
+3. Show `pixi.toml` + lockfile of a real project
+
+::: {.notes}
+**Demo script (to be built):**
+- Time-box it: run `uv add numpy pandas scipy matplotlib` and let the audience see it finish in seconds. Compare to a slide saying "conda solve: 4 minutes".
+- Show the `uv.lock` file — "this file IS the reproducibility".
+:::
+
+## Pinning: boring, essential
+
+- `numpy>=1.24` is a wish; `numpy==1.24.3` is a fact
+- Lockfiles (`uv.lock`, `pixi.lock`) pin **everything**, transitively
+- Rule: *`requirements.txt` pinned = the environment your results came from*
+
+```text
+numpy==1.24.3
+pandas==2.1.1
+matplotlib==3.8.0
+```
+
+## ruff: lint + format, one tool
+
+- Replaces flake8, isort, black, pylint — and it's **instant**
+
+```toml
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP"]
+line-length = 88
+```
+
+```bash
+ruff check .          # find problems
+ruff check --fix .    # fix them
+ruff format .         # black-style formatting
+```
+
+## 🎬 Demo 5 — ruff --fix {.demo}
+
+1. Run `ruff check` on ugly code → wall of warnings
+2. `ruff check --fix .` → most vanish
+3. `ruff format .` → clean diff
+
+::: {.notes}
+**Demo script (to be built):**
+- Prepare a genuinely ugly file: unsorted imports, unused vars, ancient syntax (`.format()`, `%`), 200-char lines.
+- First `ruff check` — count the errors out loud.
+- `--fix` — the satisfying part. Then `git diff` so they see what changed.
+:::
+
+## ipython: the REPL that pays rent
+
+- `%history`, `?` and `??` for introspection
+- `%autoreload 2` — edit module, REPL sees it instantly
+- Tab completion *everywhere*, even dict keys
+
+```python
+%autoreload 2
+df.head?          # source of .head()
+```
+
+::: {.notes}
+Quick mention — most people know Jupyter. The `%autoreload` trick is the one worth pausing on.
+:::
+
+# Part 4 — Git for research
+
+## You're already using git wrong (I did)
+
+- **Commit often**, message like you'll read it in 6 months
+- Commit **even more often** if you use AI agents to work on your code
+- Branches are free: experiments never touch `main`
+- **Tags mark results**: the exact code that produced Figure 3
+
+```bash
+git checkout -b exp/nn-v2
+git commit -m "Add dropout; accuracy 87.2% on val"
+git tag -a v1.0-baseline -m "Baseline: 85.0% val acc"
+```
+
+::: {.tip}
+A tag is a time machine: `git diff v1.0-baseline HEAD` = *exactly* what changed between the two results in your paper.
+:::
+
+## 🎬 Demo 6 — the tag workflow {.demo}
+
+1. Make a "result", tag it `v1.0-baseline`
+2. Change a hyperparameter, commit
+3. `git diff v1.0-baseline HEAD` → the whole story of your experiment
+
+::: {.notes}
+**Demo script (to be built):**
+- Use a tiny script that writes an accuracy to a file, so a "result" actually changes.
+- Emphasize the diff at the end: reviewers ask "what changed between runs?" — this answers it in one command.
+:::
+
+# Part 5 — Editing: vim, just enough
+
+## Why learn vim? The honest pitch
+
+- It's on **every machine you'll ever SSH into** — clusters, servers, HPC login nodes
+- "How do I exit vim?" is a meme because everyone hits it: survival takes 15 min
+- Modal editing = **verbs + nouns**: hands stay on the keyboard, mouse stays asleep
+
+::: {.tip}
+You don't have to *live* in vim. Learn the survival kit, then take the keybindings back to your IDE.
+:::
+
+::: {.notes}
+- Sell honestly: I'm not converting anyone to a vim lifestyle today.
+- Two real wins: (1) never be helpless on a remote machine again, (2) modal motions speed up editing *anywhere* once your fingers know them.
+- Mention `vimtutor` — 30 minutes in any terminal, teaches the survival kit properly.
+:::
+
+## The survival kit (this is the whole talk)
+
+**Modes**: `i` insert · `Esc` normal · `v` visual
+
+**Move**: `h j k l` · `w` `b` words · `0` `$` line ends · `gg` `G` file ends
+
+**Edit**: `dd` delete line · `yy` copy line · `p` paste · `u` undo · `Ctrl-r` redo
+
+**Search**: `/pattern` then `n` — same muscle memory as ripgrep
+
+**The magic**: `ciw` change inner word · `ci"` inside quotes · `ci(` inside parens
+
+::: {.notes}
+This is a cheat-sheet slide, not a lecture — it stays up while you talk. The game changer is `c` + a motion ("change until", "change inside"): once people see `ci"`, they understand why vim people are insufferable.
+:::
+
+## 🎬 Demo 7 — vim speedrun {.demo}
+
+1. Open a file with 3 small bugs
+2. Fix them: `/` to find, `ci"` to change a string, `dd` a stray line, `p` paste
+3. `:wq` — hands never left the keyboard
+
+::: {.notes}
+**Demo script (to be built):**
+- Prepare a small script with 3 deliberate mistakes (wrong string, stray line, duplicated block).
+- Narrate verbs + nouns out loud: "delete line", "change inside quotes".
+- Optional flex: `:5,10s/foo/bar/g` for a targeted search-and-replace.
+- Close: "vimtutor, 30 minutes. Then add the VSCode Vim extension and get these motions in your IDE."
+:::
+
+## The pragmatic path
+
+- **Level 1 — survive**: the kit above, on any remote machine
+- **Level 2 — take it home**: vim keybindings in your editor
+  - VSCode: *Vim* extension · PyCharm: *IdeaVim*
+  - keep the IDE (LSP, debugger, notebooks), gain the motions
+- **Level 3 — rabbit hole**: neovim + a distro (LazyVim, kickstart.nvim)
+  - do it on a break, not mid-thesis
+
+::: {.tip}
+Vim and tmux are a natural pair: both keyboard-first, both live on the cluster, and both outlast editor fads.
+:::
+
+::: {.notes}
+For academics, Level 2 is the sweet spot — say that explicitly. Level 3 people exist in every lab and love to help; find yours.
+:::
+
+# Part 6 — Writing & diagrams
+
+## Zotero: references on autopilot
+
+- Browser connector grabs papers in one click, PDF + metadata
+- Word/Google Docs/LaTeX integration → citations never typed by hand
+- Groups for lab reading lists
+
+::: {.notes}
+If the audience is LaTeX users, show the Better BibTeX key export in one sentence. If Docs users, show the plugin. Ask who they are, live.
+:::
+
+## Quarto: write once, publish everywhere
+
+- One `.qmd` (markdown + code) → **PDF, HTML site, slides (these!), Word**
+- Code + output + prose live together → results can't drift from text
+- These very slides? A Quarto file.
+
+::: {.notes}
+Point at the screen: "these slides, the same content could be a thesis chapter or a blog post, one file, three outputs."
+:::
+
+## 🎬 Demo 8 — Quarto (yes, these slides) {.demo}
+
+1. Open `index.qmd`, edit a bullet **live**
+2. Render in the background → slide updates
+3. Show a code chunk that computes a number *in* the slides
+
+::: {.notes}
+**Demo script (to be built):**
+- The meta-demo: edit the very deck they're watching. Risky, high reward.
+- Emphasize: the roadmap diagram earlier was Mermaid text inside this file.
+:::
+
+## Diagrams as text: Mermaid & Graphviz
+
+- Versionable, diffable, and fast to edit — no "final_v2.drawio.png"
+
+```{mermaid}
+%%| fig-height: 3.5
+flowchart TD
+    A[Read papers] --> B{Idea?}
+    B -->|no| A
+    B -->|yes| C[Experiment]
+    C --> D{Works?}
+    D -->|no| B
+    D -->|yes| E[Write it up]
+```
+
+::: {.tip}
+Excalidraw when you need to *think* freehand; Mermaid/Graphviz when the diagram needs to *live in the repo*.
+:::
+
+# Part 7 — AI, briefly
+
+> *"..."*
+> — **Sun Tzu (probably)**
+
+::: {.notes}
+TODO: pick the AI quote. Candidates: something about knowing the battlefield; or a self-aware fake-quote joke fitting the "Sun Tzu (probably)" meme.
+:::
+
+## AI assistants: be deliberate
+
+- **Copilot**: autocomplete that knows your repo — pay attention to *what you paste*
+- **OpenRouter**: one API key → 50+ models, pay per token
+  - cheap model for boilerplate, strong model for the hard bug
+  - open-weights models when privacy matters
+- Your data / your paper drafts: **read the terms before pasting**
+
+::: {.notes}
+Keep this balanced and short: the audience ranges from AI-allergic to AI-dependent. The cost math slide from the outline is available in the repo.
+:::
+
+# Wrap-up
+
+## TL;DR — if you only take 5 things
+
+1. **zoxide + fzf** in your shell — 10 min setup, daily payoff
+2. **tmux** on every remote machine — never lose a long job again
+3. **uv or pixi** — your environment *is* part of your methods
+4. **ruff** — free code quality, zero effort
+5. **git tags** — Figure 3, traced back to exact code
+
+## Steal this
+
+- All configs & examples: `<<repo-url>>`
+  - `.zshrc.example`, `tmux.conf.example`, `pixi.toml`, `ruff.toml`…
+- Correction welcome: **Cunningham's Law is in effect** — tell me what I got wrong
+
+::: {.notes}
+End with the disclaimer from the start. Q&A. Have a terminal open in tmux, because the best demos happen when someone asks "can it do X?"
+:::

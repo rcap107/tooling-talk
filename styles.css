@@ -1,0 +1,26 @@
+/* Live-demo slides: dashed teal frame + tinted background */
+section.demo {
+  border: 4px dashed #14b8a6;
+  background-color: #f0fdfa;
+}
+
+section.demo h2 {
+  color: #0f766e;
+}
+
+/* Tip callouts */
+.tip {
+  background: #fffbeb;
+  border-left: 6px solid #f59e0b;
+  padding: 0.4em 0.9em;
+  margin-top: 0.8em;
+}
+
+/* Keep code blocks compact */
+.reveal pre {
+  font-size: 0.72em;
+}
+
+.reveal pre code {
+  max-height: 640px;
+}
