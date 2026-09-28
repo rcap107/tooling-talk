@@ -84,14 +84,14 @@ Meta-moment: this diagram is *Mermaid, written as text, inside these slides*. We
 
 ## Your shell is your home: zsh
 
-- Every PhD student lives in a terminal. **Decorate it.**
-- Oh My Zsh: themes + plugins, zero effort
+- Remote sessions means working from a terminal. **Decorate it.**
+- Customize your shell config: `.zshrc`/`.bashrc`
+- [Oh My Zsh](https://ohmyz.sh): themes + plugins
 - Aliases: make the frequent thing the short thing
 
 ```bash
 alias ll='ls -lah'
-alias gs='git status'
-alias gl='git log --oneline -10'
+alias gst='git status'
 alias python='python3'
 ```
 
@@ -111,14 +111,15 @@ alias dtest='pixi run -e dev pytest -doctest-modules skrub skrub/_docs/modules -
 ## 🎬 Demo 1 — Recall & navigate {.demo}
 
 1. `Ctrl+R` (fuzzy history search via fzf)
-2. `z myproj` — jump anywhere (zoxide)
-3. One alias doing something tedious
+2. `z myproj` — jump anywhere ([zoxide](https://zoxide.org))
+3. Aliases
 
 ::: {.notes}
-**Demo script (to be built):**
-- Type `Ctrl+R`, then `rsync` — history found instantly. "How many of you scroll `history | grep`?"
-- `z work` → jumps to deeply nested project dir. "No more `cd ../../../../`".
-- End with: these two tools cost ~10 min to install, save time every single day.
+**Demo script** — config: `demo/shell-config/zshrc.snippet.zsh`
+- `Ctrl+R` then `rsync` — history found instantly. "How many of you scroll `history | grep`?"
+- `Ctrl+T` — fuzzy file picker with a live bat preview (toggle with `Ctrl+/`).
+- `z work` → jumps to a deeply nested project dir. "No more `cd ../../../../`".
+- End with: ~10 min of setup, pays off every single day.
 :::
 
 ## Finding things: ripgrep
@@ -130,7 +131,7 @@ rg "def calculate_mean"            # search the repo
 rg -i "todo"                       # case-insensitive
 rg "import numpy" --type py        # only Python files
 rg "error" -B 3 -A 3               # with context
-rg "TODO|FIXME" --count            # how guilty am I?
+rg "TODO|FIXME" --count            # how many things do I have left to do?
 ```
 
 ::: {.tip}
@@ -158,17 +159,18 @@ Demo 2 combines ripgrep + bat: search for a function, then page to it. The point
 3. Pipe a file / diff into `bat`
 
 ::: {.notes}
-**Demo script (to be built):**
-- Use a deliberately messy sample repo (several dirs, ignored files, TODOs).
-- First with plain `grep` for 5 painful seconds, then `rg` — instant.
-- Close with: "grep just became a read-only habit."
+**Demo script** — sample repo: `demo/messy-project/`
+- First `grep -r TODO .` for 5 painful seconds, then `rg TODO` — instant.
+- `rg -c "TODO|FIXME"` — how guilty is this project? (`src/train.py`: 5)
+- `rg learning_rate` hits 4 files; the "secret" one in `data/` stays hidden — `.gitignore` respected. Then `rg --no-ignore SECRET` finds it. "grep doesn't do that."
+- Then read a hit comfortably: `bat src/train.py --line-range 1:25`.
 :::
 
 ## Honourable mentions (30 seconds each)
 
 - **`open .`** — open anything (folder, file, URL) from the shell
-- **nnn** — terminal file manager, keyboard-only
-- **Raycast** — Spotlight on steroids: clipboard history, window management
+- **[nnn](https://github.com/jarun/nnn)** — terminal file manager, keyboard-only
+- **[Raycast](https://www.raycast.com)** — Spotlight on steroids: clipboard history, window management
 - **Custom search engines** — `z` + `Tab` in the browser → search arXiv directly
 
 ::: {.notes}
@@ -199,9 +201,8 @@ Sell it with the pain: "you SSH to the cluster, start a 6-hour training, your la
 3. Copy text from tmux to system clipboard
 
 ::: {.notes}
-**Demo script (to be built):**
-- Start a fake training script that prints progress to a log.
-- Split: top = log via `tail -f`, bottom = shell.
+**Demo script** — script: `demo/tmux-demo/fake_train.py`
+- Pane 1: `python3 fake_train.py | tee train.log`; split, pane 2: `tail -f train.log`.
 - Detach, **close the whole terminal app** (dramatic!), reopen, reattach.
 - Copy a loss value from the log with tmux copy-mode → paste in a chat window.
 :::
@@ -307,6 +308,7 @@ Pragmatic rule of thumb: **uv** for pure-Python projects, **pixi** when you need
 **Demo script (to be built):**
 - Time-box it: run `uv add numpy pandas scipy matplotlib` and let the audience see it finish in seconds. Compare to a slide saying "conda solve: 4 minutes".
 - Show the `uv.lock` file — "this file IS the reproducibility".
+- Sample project config lives in `demo/uv-pixi/pixi.toml`.
 :::
 
 ## Pinning: boring, essential
@@ -326,9 +328,11 @@ matplotlib==3.8.0
 - Replaces flake8, isort, black, pylint — and it's **instant**
 
 ```toml
+[tool.ruff]
+line-length = 88
+
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "UP"]
-line-length = 88
 ```
 
 ```bash
@@ -339,15 +343,17 @@ ruff format .         # black-style formatting
 
 ## 🎬 Demo 5 — ruff --fix {.demo}
 
-1. Run `ruff check` on ugly code → wall of warnings
-2. `ruff check --fix .` → most vanish
-3. `ruff format .` → clean diff
+1. `cd demo/ruff-demo && ruff check .` — the list of sins
+2. `ruff check --fix . && ruff format .`
+3. `git diff` — same code, readable
 
 ::: {.notes}
-**Demo script (to be built):**
-- Prepare a genuinely ugly file: unsorted imports, unused vars, ancient syntax (`.format()`, `%`), 200-char lines.
-- First `ruff check` — count the errors out loud.
-- `--fix` — the satisfying part. Then `git diff` so they see what changed.
+**Demo script** — material: `demo/ruff-demo/ugly.py` (unsorted imports, `.format()`, bare `except`, `== None`, …)
+- `ruff check .` — scroll the list briefly; no counting theatrics needed.
+- `ruff check --fix .` then `ruff format .` — the point is the *diff*, not the count.
+- `git diff` — imports sorted, f-strings, consistent style: same code, readable.
+- Mention what `--fix` deliberately leaves: bare `except`, `== None` — semantic issues a linter shouldn't silently change.
+- Reset before the talk: `demo/reset.sh`.
 :::
 
 ## ipython: the REPL that pays rent
@@ -391,9 +397,11 @@ A tag is a time machine: `git diff v1.0-baseline HEAD` = *exactly* what changed 
 3. `git diff v1.0-baseline HEAD` → the whole story of your experiment
 
 ::: {.notes}
-**Demo script (to be built):**
-- Use a tiny script that writes an accuracy to a file, so a "result" actually changes.
-- Emphasize the diff at the end: reviewers ask "what changed between runs?" — this answers it in one command.
+**Demo script** — repo: `demo/git-tags/` (`setup.sh` builds it: baseline commit + tag `v1.0-baseline` on a `results.txt` commit)
+- Edit `LEARNING_RATE` in `train.py`, rerun — the accuracy changes.
+- `git commit -am "lr=0.02"` then `git diff v1.0-baseline HEAD` — hyperparameter *and* result in one diff.
+- Reviewers ask "what changed between runs?" — one command answers it.
+- Reset: `demo/reset.sh` rebuilds the repo from scratch.
 :::
 
 # Part 5 — Editing: vim, just enough
@@ -416,15 +424,21 @@ You don't have to *live* in vim. Learn the survival kit, then take the keybindin
 
 ## The survival kit (this is the whole talk)
 
-**Modes**: `i` insert · `Esc` normal · `v` visual
-
-**Move**: `h j k l` · `w` `b` words · `0` `$` line ends · `gg` `G` file ends
-
-**Edit**: `dd` delete line · `yy` copy line · `p` paste · `u` undo · `Ctrl-r` redo
-
-**Search**: `/pattern` then `n` — same muscle memory as ripgrep
+- **Modes**: `i` insert · `Esc` normal · `v` visual
+ 
+- **Move**: `h j k l` · `w` `b` words · `0` `$` line ends · `gg` `G` file ends
+ 
+- **Edit**: `dd` delete line · `yy` copy line · `p` paste · `u` undo · `Ctrl-r` redo
+ 
+- **Search**: `/pattern` then `n` — same muscle memory as ripgrep
 
 **The magic**: `ciw` change inner word · `ci"` inside quotes · `ci(` inside parens
+
+::: {.callout-tip}
+
+Rebind your `CAPS` key to `Esc`. You'll thank me later.
+
+:::
 
 ::: {.notes}
 This is a cheat-sheet slide, not a lecture — it stays up while you talk. The game changer is `c` + a motion ("change until", "change inside"): once people see `ci"`, they understand why vim people are insufferable.
@@ -437,11 +451,12 @@ This is a cheat-sheet slide, not a lecture — it stays up while you talk. The g
 3. `:wq` — hands never left the keyboard
 
 ::: {.notes}
-**Demo script (to be built):**
-- Prepare a small script with 3 deliberate mistakes (wrong string, stray line, duplicated block).
-- Narrate verbs + nouns out loud: "delete line", "change inside quotes".
-- Optional flex: `:5,10s/foo/bar/g` for a targeted search-and-replace.
-- Close: "vimtutor, 30 minutes. Then add the VSCode Vim extension and get these motions in your IDE."
+**Demo script** — material: `demo/vim-demo/report.py` (3 deliberate bugs; answer key in `vim-demo/answer-key.md` — do NOT project it)
+- Run it → `FileNotFoundError`: fix the path with `ci"` (`dat/` → `data/`).
+- Run again → `NameError: late_pct`: `dd`, `k`, `p` to move the line up.
+- Run again → works, but spams `DEBUG` lines: `2dd` kills both.
+- Narrate verbs + nouns out loud. Optional flex: `:%s/DEBUG//gn` (dry-run count).
+- Close: "vimtutor, 30 minutes. Then the VSCode Vim extension."
 :::
 
 ## The pragmatic path
@@ -516,7 +531,7 @@ Excalidraw when you need to *think* freehand; Mermaid/Graphviz when the diagram 
 
 # Part 7 — AI, briefly
 
-> *"..."*
+> *Know your enemy something something*
 > — **Sun Tzu (probably)**
 
 ::: {.notes}
@@ -534,6 +549,11 @@ TODO: pick the AI quote. Candidates: something about knowing the battlefield; or
 ::: {.notes}
 Keep this balanced and short: the audience ranges from AI-allergic to AI-dependent. The cost math slide from the outline is available in the repo.
 :::
+
+## This talk? 
+
+0.04€ with GLM-5.3 Flash on OpenRouter
+
 
 # Wrap-up
 

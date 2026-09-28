@@ -365,7 +365,7 @@ Riccardo Cappuzzo
 <li>One alias doing something tedious</li>
 </ol>
 <aside class="notes">
-<p><strong>Demo script (to be built):</strong> - Type <code>Ctrl+R</code>, then <code>rsync</code> — history found instantly. “How many of you scroll <code>history | grep</code>?” - <code>z work</code> → jumps to deeply nested project dir. “No more <code>cd ../../../../</code>”. - End with: these two tools cost ~10 min to install, save time every single day.</p>
+<p><strong>Demo script</strong> — config: <code>demo/shell-config/zshrc.snippet.zsh</code> - <code>Ctrl+R</code> then <code>rsync</code> — history found instantly. “How many of you scroll <code>history | grep</code>?” - <code>Ctrl+T</code> — fuzzy file picker with a live bat preview (toggle with <code>Ctrl+/</code>). - <code>z work</code> → jumps to a deeply nested project dir. “No more <code>cd ../../../../</code>”. - End with: ~10 min of setup, pays off every single day.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -422,7 +422,7 @@ Riccardo Cappuzzo
 <li>Pipe a file / diff into <code>bat</code></li>
 </ol>
 <aside class="notes">
-<p><strong>Demo script (to be built):</strong> - Use a deliberately messy sample repo (several dirs, ignored files, TODOs). - First with plain <code>grep</code> for 5 painful seconds, then <code>rg</code> — instant. - Close with: “grep just became a read-only habit.”</p>
+<p><strong>Demo script</strong> — sample repo: <code>demo/messy-project/</code> - First <code>grep -r TODO .</code> for 5 painful seconds, then <code>rg TODO</code> — instant. - <code>rg -c "TODO|FIXME"</code> — how guilty is this project? (<code>src/train.py</code>: 5) - <code>rg learning_rate</code> hits 4 files; the “secret” one in <code>data/</code> stays hidden — <code>.gitignore</code> respected. Then <code>rg --no-ignore SECRET</code> finds it. “grep doesn’t do that.” - Then read a hit comfortably: <code>bat src/train.py --line-range 1:25</code>.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -493,7 +493,7 @@ Riccardo Cappuzzo
 <li>Copy text from tmux to system clipboard</li>
 </ol>
 <aside class="notes">
-<p><strong>Demo script (to be built):</strong> - Start a fake training script that prints progress to a log. - Split: top = log via <code>tail -f</code>, bottom = shell. - Detach, <strong>close the whole terminal app</strong> (dramatic!), reopen, reattach. - Copy a loss value from the log with tmux copy-mode → paste in a chat window.</p>
+<p><strong>Demo script</strong> — script: <code>demo/tmux-demo/fake_train.py</code> - Pane 1: <code>python3 fake_train.py | tee train.log</code>; split, pane 2: <code>tail -f train.log</code>. - Detach, <strong>close the whole terminal app</strong> (dramatic!), reopen, reattach. - Copy a loss value from the log with tmux copy-mode → paste in a chat window.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -607,7 +607,7 @@ Riccardo Cappuzzo
 <li>Show <code>pixi.toml</code> + lockfile of a real project</li>
 </ol>
 <aside class="notes">
-<p><strong>Demo script (to be built):</strong> - Time-box it: run <code>uv add numpy pandas scipy matplotlib</code> and let the audience see it finish in seconds. Compare to a slide saying “conda solve: 4 minutes”. - Show the <code>uv.lock</code> file — “this file IS the reproducibility”.</p>
+<p><strong>Demo script (to be built):</strong> - Time-box it: run <code>uv add numpy pandas scipy matplotlib</code> and let the audience see it finish in seconds. Compare to a slide saying “conda solve: 4 minutes”. - Show the <code>uv.lock</code> file — “this file IS the reproducibility”. - Sample project config lives in <code>demo/uv-pixi/pixi.toml</code>.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -636,9 +636,11 @@ Riccardo Cappuzzo
 <ul>
 <li>Replaces flake8, isort, black, pylint — and it’s <strong>instant</strong></li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb14-1"><a href=""></a><span class="kw">[tool.ruff.lint]</span></span>
-<span id="cb14-2"><a href=""></a><span class="dt">select</span> <span class="op">=</span> <span class="op">[</span><span class="st">"E"</span><span class="op">,</span> <span class="st">"F"</span><span class="op">,</span> <span class="st">"I"</span><span class="op">,</span> <span class="st">"N"</span><span class="op">,</span> <span class="st">"UP"</span><span class="op">]</span></span>
-<span id="cb14-3"><a href=""></a><span class="dt">line-length</span> <span class="op">=</span> <span class="dv">88</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb14-1"><a href=""></a><span class="kw">[tool.ruff]</span></span>
+<span id="cb14-2"><a href=""></a><span class="dt">line-length</span> <span class="op">=</span> <span class="dv">88</span></span>
+<span id="cb14-3"><a href=""></a></span>
+<span id="cb14-4"><a href=""></a><span class="kw">[tool.ruff.lint]</span></span>
+<span id="cb14-5"><a href=""></a><span class="dt">select</span> <span class="op">=</span> <span class="op">[</span><span class="st">"E"</span><span class="op">,</span> <span class="st">"F"</span><span class="op">,</span> <span class="st">"I"</span><span class="op">,</span> <span class="st">"N"</span><span class="op">,</span> <span class="st">"UP"</span><span class="op">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href=""></a><span class="ex">ruff</span> check .          <span class="co"># find problems</span></span>
 <span id="cb15-2"><a href=""></a><span class="ex">ruff</span> check <span class="at">--fix</span> .    <span class="co"># fix them</span></span>
 <span id="cb15-3"><a href=""></a><span class="ex">ruff</span> format .         <span class="co"># black-style formatting</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -646,12 +648,12 @@ Riccardo Cappuzzo
 <section id="demo-5-ruff-fix" class="slide level2 demo scrollable">
 <h2>🎬 Demo 5 — ruff –fix</h2>
 <ol type="1">
-<li>Run <code>ruff check</code> on ugly code → wall of warnings</li>
-<li><code>ruff check --fix .</code> → most vanish</li>
-<li><code>ruff format .</code> → clean diff</li>
+<li><code>cd demo/ruff-demo &amp;&amp; ruff check .</code> — the list of sins</li>
+<li><code>ruff check --fix . &amp;&amp; ruff format .</code></li>
+<li><code>git diff</code> — same code, readable</li>
 </ol>
 <aside class="notes">
-<p><strong>Demo script (to be built):</strong> - Prepare a genuinely ugly file: unsorted imports, unused vars, ancient syntax (<code>.format()</code>, <code>%</code>), 200-char lines. - First <code>ruff check</code> — count the errors out loud. - <code>--fix</code> — the satisfying part. Then <code>git diff</code> so they see what changed.</p>
+<p><strong>Demo script</strong> — material: <code>demo/ruff-demo/ugly.py</code> (unsorted imports, <code>.format()</code>, bare <code>except</code>, <code>== None</code>, …) - <code>ruff check .</code> — scroll the list briefly; no counting theatrics needed. - <code>ruff check --fix .</code> then <code>ruff format .</code> — the point is the <em>diff</em>, not the count. - <code>git diff</code> — imports sorted, f-strings, consistent style: same code, readable. - Mention what <code>--fix</code> deliberately leaves: bare <code>except</code>, <code>== None</code> — semantic issues a linter shouldn’t silently change. - Reset before the talk: <code>demo/reset.sh</code>.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -715,7 +717,7 @@ Riccardo Cappuzzo
 <li><code>git diff v1.0-baseline HEAD</code> → the whole story of your experiment</li>
 </ol>
 <aside class="notes">
-<p><strong>Demo script (to be built):</strong> - Use a tiny script that writes an accuracy to a file, so a “result” actually changes. - Emphasize the diff at the end: reviewers ask “what changed between runs?” — this answers it in one command.</p>
+<p><strong>Demo script</strong> — repo: <code>demo/git-tags/</code> (<code>setup.sh</code> builds it: baseline commit + tag <code>v1.0-baseline</code> on a <code>results.txt</code> commit) - Edit <code>LEARNING_RATE</code> in <code>train.py</code>, rerun — the accuracy changes. - <code>git commit -am "lr=0.02"</code> then <code>git diff v1.0-baseline HEAD</code> — hyperparameter <em>and</em> result in one diff. - Reviewers ask “what changed between runs?” — one command answers it. - Reset: <code>demo/reset.sh</code> rebuilds the repo from scratch.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -763,11 +765,26 @@ Riccardo Cappuzzo
 </section>
 <section id="the-survival-kit-this-is-the-whole-talk" class="slide level2">
 <h2>The survival kit (this is the whole talk)</h2>
-<p><strong>Modes</strong>: <code>i</code> insert · <code>Esc</code> normal · <code>v</code> visual</p>
-<p><strong>Move</strong>: <code>h j k l</code> · <code>w</code> <code>b</code> words · <code>0</code> <code>$</code> line ends · <code>gg</code> <code>G</code> file ends</p>
-<p><strong>Edit</strong>: <code>dd</code> delete line · <code>yy</code> copy line · <code>p</code> paste · <code>u</code> undo · <code>Ctrl-r</code> redo</p>
-<p><strong>Search</strong>: <code>/pattern</code> then <code>n</code> — same muscle memory as ripgrep</p>
+<ul>
+<li><p><strong>Modes</strong>: <code>i</code> insert · <code>Esc</code> normal · <code>v</code> visual</p></li>
+<li><p><strong>Move</strong>: <code>h j k l</code> · <code>w</code> <code>b</code> words · <code>0</code> <code>$</code> line ends · <code>gg</code> <code>G</code> file ends</p></li>
+<li><p><strong>Edit</strong>: <code>dd</code> delete line · <code>yy</code> copy line · <code>p</code> paste · <code>u</code> undo · <code>Ctrl-r</code> redo</p></li>
+<li><p><strong>Search</strong>: <code>/pattern</code> then <code>n</code> — same muscle memory as ripgrep</p></li>
+</ul>
 <p><strong>The magic</strong>: <code>ciw</code> change inner word · <code>ci"</code> inside quotes · <code>ci(</code> inside parens</p>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>Rebind your <code>CAPS</code> key to <code>Esc</code>. You’ll thank me later.</p>
+</div>
+</div>
+</div>
 <aside class="notes">
 <p>This is a cheat-sheet slide, not a lecture — it stays up while you talk. The game changer is <code>c</code> + a motion (“change until”, “change inside”): once people see <code>ci"</code>, they understand why vim people are insufferable.</p>
 <style type="text/css">
@@ -790,7 +807,7 @@ Riccardo Cappuzzo
 <li><code>:wq</code> — hands never left the keyboard</li>
 </ol>
 <aside class="notes">
-<p><strong>Demo script (to be built):</strong> - Prepare a small script with 3 deliberate mistakes (wrong string, stray line, duplicated block). - Narrate verbs + nouns out loud: “delete line”, “change inside quotes”. - Optional flex: <code>:5,10s/foo/bar/g</code> for a targeted search-and-replace. - Close: “vimtutor, 30 minutes. Then add the VSCode Vim extension and get these motions in your IDE.”</p>
+<p><strong>Demo script</strong> — material: <code>demo/vim-demo/report.py</code> (3 deliberate bugs; answer key in <code>vim-demo/answer-key.md</code> — do NOT project it) - Run it → <code>FileNotFoundError</code>: fix the path with <code>ci"</code> (<code>dat/</code> → <code>data/</code>). - Run again → <code>NameError: late_pct</code>: <code>dd</code>, <code>k</code>, <code>p</code> to move the line up. - Run again → works, but spams <code>DEBUG</code> lines: <code>2dd</code> kills both. - Narrate verbs + nouns out loud. Optional flex: <code>:%s/DEBUG//gn</code> (dry-run count). - Close: “vimtutor, 30 minutes. Then the VSCode Vim extension.”</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -933,7 +950,7 @@ Riccardo Cappuzzo
 <section id="part-7-ai-briefly" class="title-slide slide level1 center">
 <h1>Part 7 — AI, briefly</h1>
 <blockquote>
-<p><em>“…”</em> — <strong>Sun Tzu (probably)</strong></p>
+<p><em>Know your enemy something something</em> — <strong>Sun Tzu (probably)</strong></p>
 </blockquote>
 <aside class="notes">
 <p>TODO: pick the AI quote. Candidates: something about knowing the battlefield; or a self-aware fake-quote joke fitting the “Sun Tzu (probably)” meme.</p>

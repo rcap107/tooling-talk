@@ -1,0 +1,18 @@
+[project]
+name = "research-project"
+version = "0.1.0"
+description = "PhD research project with reproducible dependencies"
+
+[dependencies]
+python = "3.11.*"
+numpy = ">=1.24.0,<2"
+pandas = ">=2.0.0"
+matplotlib = ">=3.7.0"
+jupyter = ">=1.0.0"
+pytest = ">=7.0.0"
+ruff = ">=0.1.0"
+
+[tasks]
+test = "pytest tests/"
+lint = "ruff check ."
+format = "ruff format ."
