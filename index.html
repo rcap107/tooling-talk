@@ -333,9 +333,14 @@ Riccardo Cappuzzo
 <ul>
 <li>Remote sessions means working from a terminal. <strong>Decorate it.</strong></li>
 <li>Customize your shell config: <code>.zshrc</code>/<code>.bashrc</code></li>
-<li><a href="https://ohmyz.sh">Oh My Zsh</a>: themes + plugins</li>
-<li>Aliases: make the frequent thing the short thing</li>
+<li><a href="https://ohmyz.sh">Oh My Zsh</a>: themes + plugins
+<ul>
+<li><code>zsh-autocomplete</code></li>
+</ul></li>
 </ul>
+</section>
+<section id="aliases-make-frequent-commands-quick-to-type" class="slide level2">
+<h2>Aliases: make frequent commands quick to type</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href=""></a><span class="bu">alias</span> ll=<span class="st">'ls -lah'</span></span>
 <span id="cb1-2"><a href=""></a><span class="bu">alias</span> gst=<span class="st">'git status'</span></span>
 <span id="cb1-3"><a href=""></a><span class="bu">alias</span> python=<span class="st">'python3'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -346,7 +351,7 @@ Riccardo Cappuzzo
 <aside class="notes">
 <ul>
 <li>Show <code>~/.zshrc</code> briefly — don’t read the whole file.</li>
-<li>Emphasize: aliases are personal. Steal mine, then make your own.</li>
+<li>Emphasize: aliases are personal. Mine are an example, make your own.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -368,7 +373,7 @@ Riccardo Cappuzzo
 <li>Aliases</li>
 </ol>
 <aside class="notes">
-<p><strong>Demo script</strong> — config: <code>demo/shell-config/zshrc.snippet.zsh</code> - <code>Ctrl+R</code> then <code>rsync</code> — history found instantly. “How many of you scroll <code>history | grep</code>?” - <code>Ctrl+T</code> — fuzzy file picker with a live bat preview (toggle with <code>Ctrl+/</code>). - <code>z work</code> → jumps to a deeply nested project dir. “No more <code>cd ../../../../</code>”. - End with: ~10 min of setup, pays off every single day.</p>
+<p><strong>Demo script</strong> — config: <code>demo/shell-config/zshrc.snippet.zsh</code> - <code>Ctrl+R</code> then <code>rsync</code> — history found instantly. - <code>Ctrl+T</code> — fuzzy file picker with a live bat preview (toggle with <code>Ctrl+/</code>). - <code>z work</code> → jumps to a deeply nested project dir. “No more <code>cd ../../../../</code>”.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -425,7 +430,7 @@ Riccardo Cappuzzo
 <li>Pipe a file / diff into <code>bat</code></li>
 </ol>
 <aside class="notes">
-<p><strong>Demo script</strong> — sample repo: <code>demo/messy-project/</code> - First <code>grep -r TODO .</code> for 5 painful seconds, then <code>rg TODO</code> — instant. - <code>rg -c "TODO|FIXME"</code> — how guilty is this project? (<code>src/train.py</code>: 5) - <code>rg learning_rate</code> hits 4 files; the “secret” one in <code>data/</code> stays hidden — <code>.gitignore</code> respected. Then <code>rg --no-ignore SECRET</code> finds it. “grep doesn’t do that.” - Then read a hit comfortably: <code>bat src/train.py --line-range 1:25</code>.</p>
+<p><strong>Demo script</strong> — sample repo: <code>demo/messy-project/</code> - <code>rg -c "TODO|FIXME"</code>: how how many things in the backlog? (<code>src/train.py</code>: 5) - <code>rg learning_rate</code> hits 4 files; the “secret” one in <code>data/</code> stays hidden — <code>.gitignore</code> respected. Then <code>rg --no-ignore SECRET</code> finds it. “grep doesn’t do that.” - Then read a hit comfortably: <code>bat src/train.py --line-range 1:25</code>.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -446,19 +451,6 @@ Riccardo Cappuzzo
 <li><strong><a href="https://www.raycast.com">Raycast</a></strong> — Spotlight on steroids: clipboard history, window management</li>
 <li><strong>Custom search engines</strong> — <code>z</code> + <code>Tab</code> in the browser → search arXiv directly</li>
 </ul>
-<aside class="notes">
-<p>Skip fast; these are one-liners. If someone asks later, they’re in the repo.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section></section>
 <section>
 <section id="part-2-long-jobs-remote-machines" class="title-slide slide level1 center">
@@ -470,23 +462,11 @@ Riccardo Cappuzzo
 <ul>
 <li><strong>Sessions</strong> survive SSH disconnects, laptop sleeps, crashed VPNs</li>
 <li>Split panes: run training + watch logs + edit, in one window</li>
+<li>Copy from the terminal to your OS clipboard</li>
 </ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href=""></a><span class="ex">tmux</span> new <span class="at">-s</span> training     <span class="co"># start a session</span></span>
 <span id="cb5-2"><a href=""></a><span class="ex">Ctrl-b</span> d                 <span class="co"># detach (job keeps running!)</span></span>
 <span id="cb5-3"><a href=""></a><span class="ex">tmux</span> attach <span class="at">-t</span> training  <span class="co"># reattach from anywhere</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<aside class="notes">
-<p>Sell it with the pain: “you SSH to the cluster, start a 6-hour training, your laptop falls asleep → job dead. tmux makes that impossible.”</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 <section id="demo-3-tmux" class="slide level2 demo scrollable">
 <h2>🎬 Demo 3 — tmux</h2>
@@ -529,7 +509,8 @@ Riccardo Cappuzzo
 <section id="rsync-scp" class="slide level2">
 <h2>rsync &gt; scp</h2>
 <ul>
-<li>Copies <strong>only what changed</strong> → resumable, cheap</li>
+<li>Copies <strong>only what changed</strong></li>
+<li>Resumes copying from when it was interrupted</li>
 </ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href=""></a><span class="fu">rsync</span> <span class="at">-avz</span> <span class="at">--exclude</span><span class="op">=</span><span class="st">'*.npy'</span> results/ drago:~/project/results/</span>
 <span id="cb7-2"><a href=""></a><span class="fu">rsync</span> <span class="at">-avz</span> <span class="at">--partial</span> drago:~/big_output.h5 .</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -541,19 +522,16 @@ Riccardo Cappuzzo
 </section>
 <section id="it-works-on-my-machine" class="slide level2">
 <h2>“It works on my machine”</h2>
-<p>But then: - OS updates - New python versions - New package versions - Functions are deprecated and removed - Forgotten packages turn out to be vital</p>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Important</strong></p>
-</div>
-<div class="callout-content">
+<p>But then:</p>
+<ul>
+<li>OS updates</li>
+<li>New python versions</li>
+<li>New package versions</li>
+<li>Functions are deprecated and removed</li>
+<li>Forgotten packages turn out to be vital</li>
+</ul>
+<div class="important">
 <p>The environment is part of the method section</p>
-</div>
-</div>
 </div>
 </section>
 <section id="pixi-environments-as-files" class="slide level2">
@@ -626,7 +604,7 @@ Riccardo Cappuzzo
 <section id="ruff-lint-format-one-tool" class="slide level2">
 <h2>ruff: lint + format, one tool</h2>
 <ul>
-<li>Replaces flake8, isort, black, pylint — and it’s <strong>instant</strong></li>
+<li>Replaces flake8, isort, black, pylint – and it’s <strong>instant</strong></li>
 </ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb12-1"><a href=""></a><span class="kw">[tool.ruff]</span></span>
 <span id="cb12-2"><a href=""></a><span class="dt">line-length</span> <span class="op">=</span> <span class="dv">88</span></span>
@@ -658,15 +636,18 @@ Riccardo Cappuzzo
           display:block!important;
       }</style></aside>
 </section>
-<section id="ipython-the-repl-that-pays-rent" class="slide level2">
-<h2>ipython: the REPL that pays rent</h2>
+<section id="ipython-a-much-better-python-console" class="slide level2">
+<h2>ipython: a (much) better python console</h2>
 <ul>
 <li><code>%history</code>, <code>?</code> and <code>??</code> for introspection</li>
-<li><code>%autoreload 2</code> — edit module, REPL sees it instantly</li>
+<li><code>%autoreload 2</code> – edit module, REPL sees it instantly</li>
 <li>Tab completion <em>everywhere</em>, even dict keys</li>
+<li>custom config – same setup every time you run the console</li>
 </ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href=""></a><span class="op">%</span>autoreload <span class="dv">2</span></span>
-<span id="cb14-2"><a href=""></a>df.head?          <span class="co"># source of .head()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb14-2"><a href=""></a>df.head?          <span class="co"># source of .head()</span></span>
+<span id="cb14-3"><a href=""></a><span class="op">%</span>run myscript.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb15-1"><a href=""></a>ipython -i myscript.py # execute script, then interactive mode</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <aside class="notes">
 <p>Quick mention — most people know Jupyter. The <code>%autoreload</code> trick is the one worth pausing on.</p>
 <style type="text/css">
@@ -690,13 +671,16 @@ Riccardo Cappuzzo
 <h2>You’re probably using git wrong (I did)</h2>
 <ul>
 <li><strong>Commit often</strong>, message like you’ll read it in 6 months</li>
-<li>Commit <strong>even more often</strong> if you use AI agents to work on your code</li>
+<li>Commit <strong>even more often</strong> if you use AI agents to work on your code
+<ul>
+<li>They tend to break more things than you think (or want)</li>
+</ul></li>
 <li>Branches are free: experiments never touch <code>main</code></li>
 <li><strong>Tag important results</strong>: the exact code that produced Figure 3, the final version before the deadline</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href=""></a><span class="fu">git</span> checkout <span class="at">-b</span> exp/nn-v2</span>
-<span id="cb15-2"><a href=""></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add dropout; accuracy 87.2% on val"</span></span>
-<span id="cb15-3"><a href=""></a><span class="fu">git</span> tag <span class="at">-a</span> v1.0-baseline</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href=""></a><span class="fu">git</span> checkout <span class="at">-b</span> exp/nn-v2</span>
+<span id="cb16-2"><a href=""></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add dropout; accuracy 87.2% on val"</span></span>
+<span id="cb16-3"><a href=""></a><span class="fu">git</span> tag <span class="at">-a</span> v1.0-baseline</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="tip">
 <p>Use tags like a time machine: <code>git diff v1.0-baseline HEAD</code> shows <em>exactly</em> what changed between the two results in your paper.</p>
 </div>
@@ -706,6 +690,10 @@ Riccardo Cappuzzo
 <h1>Part 5 — Editing: vim, just enough</h1>
 
 </section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+
+<img data-src="images/real_programmers.png" class="r-stretch quarto-figure-center"><p class="caption">https://xkcd.com/378/</p></section>
 <section id="but-why-part-2" class="slide level2">
 <h2>But why? Part 2</h2>
 <ul>

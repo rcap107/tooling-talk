@@ -95,7 +95,9 @@ Mention this is mermaid
 - Remote sessions means working from a terminal. **Decorate it.**
 - Customize your shell config: `.zshrc`/`.bashrc`
 - [Oh My Zsh](https://ohmyz.sh): themes + plugins
-- Aliases: make the frequent thing the short thing
+  - `zsh-autocomplete`
+
+## Aliases: make frequent commands quick to type
 
 ```bash
 alias ll='ls -lah'
@@ -113,7 +115,7 @@ alias dtest='pixi run -e dev pytest -doctest-modules skrub skrub/_docs/modules -
 
 ::: {.notes}
 - Show `~/.zshrc` briefly — don't read the whole file.
-- Emphasize: aliases are personal. Steal mine, then make your own.
+- Emphasize: aliases are personal. Mine are an example, make your own. 
 :::
 
 ## 🎬 Demo 1 — Recall & navigate {.demo}
@@ -124,10 +126,9 @@ alias dtest='pixi run -e dev pytest -doctest-modules skrub skrub/_docs/modules -
 
 ::: {.notes}
 **Demo script** — config: `demo/shell-config/zshrc.snippet.zsh`
-- `Ctrl+R` then `rsync` — history found instantly. "How many of you scroll `history | grep`?"
+- `Ctrl+R` then `rsync` — history found instantly.
 - `Ctrl+T` — fuzzy file picker with a live bat preview (toggle with `Ctrl+/`).
 - `z work` → jumps to a deeply nested project dir. "No more `cd ../../../../`".
-- End with: ~10 min of setup, pays off every single day.
 :::
 
 ## Finding things: ripgrep
@@ -168,8 +169,7 @@ Demo 2 combines ripgrep + bat: search for a function, then page to it. The point
 
 ::: {.notes}
 **Demo script** — sample repo: `demo/messy-project/`
-- First `grep -r TODO .` for 5 painful seconds, then `rg TODO` — instant.
-- `rg -c "TODO|FIXME"` — how guilty is this project? (`src/train.py`: 5)
+- `rg -c "TODO|FIXME"`: how how many things in the backlog? (`src/train.py`: 5)
 - `rg learning_rate` hits 4 files; the "secret" one in `data/` stays hidden — `.gitignore` respected. Then `rg --no-ignore SECRET` finds it. "grep doesn't do that."
 - Then read a hit comfortably: `bat src/train.py --line-range 1:25`.
 :::
@@ -181,26 +181,19 @@ Demo 2 combines ripgrep + bat: search for a function, then page to it. The point
 - **[Raycast](https://www.raycast.com)** — Spotlight on steroids: clipboard history, window management
 - **Custom search engines** — `z` + `Tab` in the browser → search arXiv directly
 
-::: {.notes}
-Skip fast; these are one-liners. If someone asks later, they're in the repo.
-:::
-
 # Part 2 — Long jobs & remote machines
 
 ## tmux: your terminal, inside your terminal
 
 - **Sessions** survive SSH disconnects, laptop sleeps, crashed VPNs
 - Split panes: run training + watch logs + edit, in one window
+- Copy from the terminal to your OS clipboard
 
 ```bash
 tmux new -s training     # start a session
 Ctrl-b d                 # detach (job keeps running!)
 tmux attach -t training  # reattach from anywhere
 ```
-
-::: {.notes}
-Sell it with the pain: "you SSH to the cluster, start a 6-hour training, your laptop falls asleep → job dead. tmux makes that impossible."
-:::
 
 ## 🎬 Demo 3 — tmux {.demo}
 
@@ -236,7 +229,8 @@ Then simply: `ssh margaret`
 
 ## rsync > scp
 
-- Copies **only what changed** → resumable, cheap
+- Copies **only what changed**
+- Resumes copying from when it was interrupted
 
 ```bash
 rsync -avz --exclude='*.npy' results/ drago:~/project/results/
@@ -248,6 +242,7 @@ rsync -avz --partial drago:~/big_output.h5 .
 ## "It works on my machine"
 
 But then:
+
 - OS updates
 - New python versions
 - New package versions
@@ -255,7 +250,7 @@ But then:
 - Forgotten packages turn out to be vital
 
 
-::: {.callout-important}
+::: {.important}
 
 The environment is part of the method section
 
@@ -331,7 +326,7 @@ matplotlib==3.8.0
 
 ## ruff: lint + format, one tool
 
-- Replaces flake8, isort, black, pylint — and it's **instant**
+- Replaces flake8, isort, black, pylint -- and it's **instant**
 
 ```toml
 [tool.ruff]
@@ -362,16 +357,23 @@ ruff format .         # black-style formatting
 - Reset before the talk: `demo/reset.sh`.
 :::
 
-## ipython: the REPL that pays rent
+## ipython: a (much) better python console
 
 - `%history`, `?` and `??` for introspection
-- `%autoreload 2` — edit module, REPL sees it instantly
+- `%autoreload 2` -- edit module, REPL sees it instantly
 - Tab completion *everywhere*, even dict keys
+- custom config -- same setup every time you run the console
 
 ```python
 %autoreload 2
 df.head?          # source of .head()
+%run myscript.py
 ```
+
+```shell
+ipython -i myscript.py # execute script, then interactive mode
+```
+
 
 ::: {.notes}
 Quick mention — most people know Jupyter. The `%autoreload` trick is the one worth pausing on.
@@ -383,6 +385,7 @@ Quick mention — most people know Jupyter. The `%autoreload` trick is the one w
 
 - **Commit often**, message like you'll read it in 6 months
 - Commit **even more often** if you use AI agents to work on your code
+  - They tend to break more things than you think (or want)
 - Branches are free: experiments never touch `main`
 - **Tag important results**: the exact code that produced Figure 3, the final version before the deadline
 
@@ -398,11 +401,15 @@ Use tags like a time machine: `git diff v1.0-baseline HEAD` shows *exactly* what
 
 # Part 5 — Editing: vim, just enough
 
+## 
+![https://xkcd.com/378/](images/real_programmers.png)
+
 ## But why? Part 2
 
 - It's on **every machine you'll ever SSH into** — clusters, servers, login nodes
 - "How do I exit vim?" is a meme for a reason: it's worth to learn how to survive
 - Modal editing = **verbs + nouns**
+  - `INSERT`, `NORMAL`, `VISUAL`
 
 ::: {.tip}
 You don't have to *live* in vim. Learn how to survive, then take the keybindings back to your IDE (with extensions).
@@ -426,7 +433,7 @@ You don't have to *live* in vim. Learn how to survive, then take the keybindings
 
 **The magic**: `ciw` change inner word · `ci"` inside quotes · `ci(` inside parens
 
-::: {.callout-tip}
+::: {.tip}
 
 Rebind your `CAPS` key to `Esc`. You'll thank me later.
 
