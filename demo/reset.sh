@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
 # Restore all demo materials to their pre-talk state.
+# Pristine content comes from the talk repo's last commit — commit before resetting.
 set -euo pipefail
 cd "$(dirname "$0")"
+ROOT="$(git rev-parse --show-toplevel)"
 
-# ruff-demo: restore ugly.py to its committed ugly state
-git -C ruff-demo checkout -q .
+# Safety: abort if HEAD still records the demo dirs as embedded repos (gitlinks)
+for d in messy-project ruff-demo vim-demo; do
+  mode="$(git -C "$ROOT" ls-tree HEAD "demo/$d" | awk '{print $1}')"
+  if [ "$mode" = "160000" ]; then
+    echo "error: demo/$d is still an embedded repo in HEAD." >&2
+    echo "       Commit the plain files first (see demo/README.md), then re-run." >&2
+    exit 1
+  fi
+done
 
-# git-tags: wipe and rebuild fresh (recreates baseline commit + tag)
-rm -rf git-tags/.git git-tags/results.txt
-./git-tags/setup.sh >/dev/null
-
-# vim-demo: restore the buggy state
-git -C vim-demo checkout -q .
-
-# messy-project: discard edits + the live TODO line, drop stray files
-git -C messy-project checkout -q .
-git -C messy-project clean -qfd
-
+git -C "$ROOT" checkout -q HEAD -- demo/messy-project demo/ruff-demo demo/vim-demo
+./setup.sh
 echo "All demos reset."

@@ -50,13 +50,22 @@ css: styles.css
   - installing things
   - "wait, which environment was this?"
 
+## 
+
+![https://xkcd.com/1691/](images/optimization.png)
+
+## Why bother?
+![https://xkcd.com/1205/](images/is_it_worth_the_time_2x.png)
+
 ## Why bother?
 
-- Your analysis will be re-run **6 months later**, by you, on a deadline
-  	- Or even later, when they will ask you to reproduce results in the camera ready
+- You will need to re-run your analysis
+  - Months later, for a rebuttal
+  - More months later, for the camera ready
+  - Even more months later, for a separate paper
 - Reviewers / collaborators / your future self need **reproducibility**
   	- People will come back to your repo and try to replicate your results
-- Time saved **compounds**: 10 min/day ≈ **40 hours/year**
+- All time saved **compounds**: 10 min/day ≈ **40 hours/year**
 
 ::: {.tip}
 The goal is not more tools. The goal is **fewer keystrokes for the things you do constantly**.
@@ -67,7 +76,7 @@ The goal is not more tools. The goal is **fewer keystrokes for the things you do
 ```{mermaid}
 %%| fig-height: 3
 flowchart LR
-    A[The<br>shell] --> B[Remote &<br>long jobs]
+    A[The<br>shell] --> B[tmux: Remote &<br>long jobs]
     B --> C[Reproducible<br>Python]
     C --> D[Git]
     D --> G[vim,<br>just enough]
@@ -387,20 +396,6 @@ git tag -a v1.0-baseline
 Use tags like a time machine: `git diff v1.0-baseline HEAD` shows *exactly* what changed between the two results in your paper.
 :::
 
-## 🎬 Demo 6 — the tag workflow {.demo}
-
-1. Make a "result", tag it `v1.0-baseline`
-2. Change a hyperparameter, commit
-3. `git diff v1.0-baseline HEAD` → the whole story of your experiment
-
-::: {.notes}
-**Demo script** — repo: `demo/git-tags/` (`setup.sh` builds it: baseline commit + tag `v1.0-baseline` on a `results.txt` commit)
-- Edit `LEARNING_RATE` in `train.py`, rerun — the accuracy changes.
-- `git commit -am "lr=0.02"` then `git diff v1.0-baseline HEAD` — hyperparameter *and* result in one diff.
-- Reviewers ask "what changed between runs?" — one command answers it.
-- Reset: `demo/reset.sh` rebuilds the repo from scratch.
-:::
-
 # Part 5 — Editing: vim, just enough
 
 ## But why? Part 2
@@ -441,7 +436,7 @@ Rebind your `CAPS` key to `Esc`. You'll thank me later.
 This is a cheat-sheet slide, not a lecture — it stays up while you talk. The game changer is `c` + a motion ("change until", "change inside"): once people see `ci"`, they understand why vim people are insufferable.
 :::
 
-## 🎬 Demo 7 — vim speedrun {.demo}
+## 🎬 Demo 6 — vim speedrun {.demo}
 
 1. Open a file with 3 small bugs
 2. Fix them: `/` to find, `ci"` to change a string, `dd` a stray line, `p` paste
@@ -499,7 +494,7 @@ Going from slides to blogs can be slightly to **extremely** janky.
 Point at the screen: "these slides, the same content could be a thesis chapter or a blog post, one file, three outputs."
 :::
 
-## 🎬 Demo 8 — Quarto (yes, these slides) {.demo}
+## 🎬 Demo 7 — Quarto (yes, these slides) {.demo}
 
 1. Open `index.qmd`, edit a bullet **live**
 2. Render in the background → slide updates

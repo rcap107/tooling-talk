@@ -1,0 +1,10 @@
+# datasets are too big for git
+data/
+*.h5
+*.npy
+
+__pycache__/
+.ipynb_checkpoints/
+
+# old experiment dumps
+experiments/**/*.pkl

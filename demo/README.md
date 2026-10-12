@@ -9,19 +9,26 @@ Run-of-show for the demos in `index.qmd`. Rehearse once with `reset.sh` at the s
 | 3 | tmux | `tmux-demo/` | split panes + `tail -f`, detach, close terminal, reattach — job alive |
 | 4 | uv / pixi | `uv-pixi/` | `uv init` + `uv add` live; show `pixi.toml` + lockfile |
 | 5 | ruff | `ruff-demo/` | `ruff check .` → `--fix` + `format` → `git diff` = readable |
-| 6 | git tags | `git-tags/` | edit lr → rerun → commit → `git diff v1.0-baseline HEAD` |
-| 7 | vim | `vim-demo/` | 3 bugs revealed one by one; fixes = `ci"`, `dd`+`p`, `2dd` (`answer-key.md`) |
+| 6 | vim | `vim-demo/` | 3 bugs revealed one by one; fixes = `ci"`, `dd`+`p`, `2dd` (`answer-key.md`) |
+| 7 | Quarto meta-demo | `../index.qmd` | edit a bullet live, re-render; roadmap diagram is Mermaid text |
 
-## Per-demo reset (or use `./reset.sh` for all)
+## Before the talk / after cloning
 
 ```bash
-git -C ruff-demo checkout .                 # demo 5
-./git-tags/setup.sh                         # demo 6 (after rm -rf git-tags/.git)
-git -C vim-demo checkout .                  # demo 7
-git -C messy-project checkout . && git -C messy-project clean -fd   # demo 2
+./setup.sh    # creates the throwaway git repos demos 2 and 5 need
 ```
 
-## Demo 7 answer key (do not project)
+## Reset everything (between rehearsals)
+
+```bash
+./reset.sh   # restores demo files from the talk repo's last commit, then re-runs setup.sh
+```
+
+The inner `.git` repos created by `setup.sh` are **build artifacts** — never commit
+them. If `git status` ever shows `demo/<dir>` as an embedded repo, you've committed
+one: `git rm -r --cached demo/<dir> && git add demo/`.
+
+## Demo 6 answer key (do not project)
 
 See `vim-demo/answer-key.md`. Sequence: `FileNotFoundError` → `ci"`;
 `NameError: late_pct` → `dd` + `k` + `p`; `DEBUG` spam → `2dd`.
