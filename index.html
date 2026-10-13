@@ -237,19 +237,19 @@ Riccardo Cappuzzo
           display:block!important;
       }</style></aside>
 </section>
-<section id="two-laws-to-set-the-mood" class="slide level2 smaller scrollable">
+<section id="two-laws-to-set-the-mood" class="slide level2 smaller">
 <h2>Two laws to set the mood</h2>
 <blockquote>
 <p>The best way to get the right answer on the Internet is not to ask a question; it’s to post the wrong answer. — <strong>Cunningham’s Law</strong></p>
 </blockquote>
 <ul>
-<li>Today I will say wrong things on purpose<sup>1</sup>. <strong>Correct me.</strong></li>
+<li>If I say something wrong, <strong>correct me.</strong></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>Ok, not <em>on purpose</em>.</p></li></ol></aside></section>
+</section>
 <section id="the-other-law" class="slide level2">
 <h2>The other law</h2>
 <blockquote>
-<p>Premature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3%. — <strong>Knuth</strong></p>
+<p>Premature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3%. — <strong>Knuth’s adage</strong></p>
 </blockquote>
 <ul>
 <li><p>Same for tooling: <strong>don’t</strong> build a perfect pipeline on day 1.</p></li>
@@ -270,8 +270,8 @@ Riccardo Cappuzzo
 <h2>Why bother?</h2>
 
 <img data-src="images/is_it_worth_the_time_2x.png" class="r-stretch quarto-figure-center"><p class="caption">https://xkcd.com/1205/</p></section>
-<section id="why-bother-1" class="slide level2">
-<h2>Why bother?</h2>
+<section id="why-bother-reproducibility" class="slide level2">
+<h2>Why bother? Reproducibility!</h2>
 <ul>
 <li>You will need to re-run your analysis
 <ul>
@@ -283,7 +283,13 @@ Riccardo Cappuzzo
 <ul>
 <li>People will come back to your repo and try to replicate your results</li>
 </ul></li>
+</ul>
+</section>
+<section id="why-bother-time-savings" class="slide level2">
+<h2>Why bother? Time savings!</h2>
+<ul>
 <li>All time saved <strong>compounds</strong>: 10 min/day ≈ <strong>40 hours/year</strong></li>
+<li>Reliable workflow and code -&gt; less time wasted fixing avoidable problems</li>
 </ul>
 <div class="tip">
 <p>The goal is not more tools. The goal is <strong>fewer keystrokes for the things you do constantly</strong>.</p>
@@ -337,14 +343,20 @@ Riccardo Cappuzzo
 <ul>
 <li><code>zsh-autocomplete</code></li>
 </ul></li>
+<li>Quick navigation with <a href="https://zoxide.org">zoxide</a></li>
 </ul>
 </section>
-<section id="aliases-make-frequent-commands-quick-to-type" class="slide level2">
-<h2>Aliases: make frequent commands quick to type</h2>
+<section id="aliases" class="slide level2">
+<h2>Aliases</h2>
+<ul>
+<li><code>alias</code> lets you replace a full command with a shorthand</li>
+<li>No need to remember the actual command</li>
+<li>Much faster to type</li>
+</ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href=""></a><span class="bu">alias</span> ll=<span class="st">'ls -lah'</span></span>
 <span id="cb1-2"><a href=""></a><span class="bu">alias</span> gst=<span class="st">'git status'</span></span>
 <span id="cb1-3"><a href=""></a><span class="bu">alias</span> python=<span class="st">'python3'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Some of the commands I use on a daily basis:</p>
+<p>Some aliases I use on a daily basis:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href=""></a><span class="bu">alias</span> dc=<span class="st">"pixi run -e doc build-doc-quick"</span></span>
 <span id="cb2-2"><a href=""></a><span class="bu">alias</span> odo=<span class="st">"open ~/work/skrub/doc/_build/html/index.html"</span></span>
 <span id="cb2-3"><a href=""></a><span class="bu">alias</span> dtest=<span class="st">'pixi run -e dev pytest -doctest-modules skrub skrub/_docs/modules --ignore-glob="*/test_*.py" --doctest-glob="*.rst"'</span> <span class="at">--ignore-glob</span><span class="op">=</span><span class="st">"doc/*"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -389,7 +401,7 @@ Riccardo Cappuzzo
 <section id="finding-things-ripgrep" class="slide level2">
 <h2>Finding things: ripgrep</h2>
 <ul>
-<li><code>grep</code> on steroids: <strong>fast</strong>, respects <code>.gitignore</code>, colourful</li>
+<li>rip <code>grep</code> for a reason: <strong>fast</strong>, respects <code>.gitignore</code>, colourful</li>
 </ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href=""></a><span class="ex">rg</span> <span class="st">"def calculate_mean"</span>            <span class="co"># search the repo</span></span>
 <span id="cb3-2"><a href=""></a><span class="ex">rg</span> <span class="at">-i</span> <span class="st">"todo"</span>                       <span class="co"># case-insensitive</span></span>
@@ -397,7 +409,7 @@ Riccardo Cappuzzo
 <span id="cb3-4"><a href=""></a><span class="ex">rg</span> <span class="st">"error"</span> <span class="at">-B</span> 3 <span class="at">-A</span> 3               <span class="co"># with context</span></span>
 <span id="cb3-5"><a href=""></a><span class="ex">rg</span> <span class="st">"TODO|FIXME"</span> <span class="at">--count</span>            <span class="co"># how many things do I have left to do?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="tip">
-<p>Pair it with <code>fzf</code>: <code>Ctrl+T</code> inserts any file path, fuzzy-matched.</p>
+<p>Pair it with <code>fzf</code>: <code>Ctrl+T</code> inserts any fuzzy-matched file path.</p>
 </div>
 </section>
 <section id="reading-things-bat" class="slide level2">
@@ -407,7 +419,8 @@ Riccardo Cappuzzo
 </ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href=""></a><span class="ex">bat</span> script.py</span>
 <span id="cb4-2"><a href=""></a><span class="ex">bat</span> script.py <span class="at">--line-range</span> 10:20</span>
-<span id="cb4-3"><a href=""></a><span class="fu">git</span> diff <span class="kw">|</span> <span class="ex">bat</span>          <span class="co"># readable diffs</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-3"><a href=""></a><span class="ex">bat</span> <span class="at">-p</span> script.py <span class="co"># plain output (better for copying)</span></span>
+<span id="cb4-4"><a href=""></a><span class="fu">git</span> diff <span class="kw">|</span> <span class="ex">bat</span>          <span class="co"># readable diffs</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <aside class="notes">
 <p>Demo 2 combines ripgrep + bat: search for a function, then page to it. The point: you stop opening an IDE to find one line.</p>
 <style type="text/css">
@@ -443,13 +456,17 @@ Riccardo Cappuzzo
           display:block!important;
       }</style></aside>
 </section>
-<section id="honourable-mentions" class="slide level2">
-<h2>Honourable mentions</h2>
+<section id="honorable-mentions" class="slide level2">
+<h2>Honorable mentions</h2>
 <ul>
 <li><strong><code>open .</code></strong> — open anything (folder, file, URL) from the shell</li>
 <li><strong><a href="https://github.com/jarun/nnn">nnn</a></strong> — terminal file manager, keyboard-only</li>
+<li><strong>Custom search engines</strong> — <code>z</code> + <code>Tab</code> in the browser -&gt; search arXiv directly</li>
+</ul>
+<p>Mac only:</p>
+<ul>
+<li><code>pbcopy</code> and <code>pbpaste</code>: copy/paste from command line to OS clipboard</li>
 <li><strong><a href="https://www.raycast.com">Raycast</a></strong> — Spotlight on steroids: clipboard history, window management</li>
-<li><strong>Custom search engines</strong> — <code>z</code> + <code>Tab</code> in the browser → search arXiv directly</li>
 </ul>
 </section></section>
 <section>
@@ -472,11 +489,11 @@ Riccardo Cappuzzo
 <h2>🎬 Demo 3 — tmux</h2>
 <ol type="1">
 <li>Split panes: run a “long job” + <code>watch</code> its log</li>
-<li>Detach, close terminal entirely, reattach → still running</li>
+<li>Detach, close terminal entirely, reattach -&gt; still running</li>
 <li>Copy text from tmux to system clipboard</li>
 </ol>
 <aside class="notes">
-<p><strong>Demo script</strong> — script: <code>demo/tmux-demo/fake_train.py</code> - Pane 1: <code>python3 fake_train.py | tee train.log</code>; split, pane 2: <code>tail -f train.log</code>. - Detach, close the terminal, reopen, reattach. - Copy a loss value from the log with tmux copy-mode → paste in a chat window.</p>
+<p><strong>Demo script</strong> — script: <code>demo/tmux-demo/fake_train.py</code> - Pane 1: <code>python3 fake_train.py | tee train.log</code>; split, pane 2: <code>tail -f train.log</code>. - Detach, close the terminal, reopen, reattach. - Copy a loss value from the log with tmux copy-mode -&gt; paste in a chat window.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -513,7 +530,7 @@ Riccardo Cappuzzo
 <li>Resumes copying from when it was interrupted</li>
 </ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href=""></a><span class="fu">rsync</span> <span class="at">-avz</span> <span class="at">--exclude</span><span class="op">=</span><span class="st">'*.npy'</span> results/ drago:~/project/results/</span>
-<span id="cb7-2"><a href=""></a><span class="fu">rsync</span> <span class="at">-avz</span> <span class="at">--partial</span> drago:~/big_output.h5 .</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-2"><a href=""></a><span class="fu">rsync</span> <span class="at">-avz</span> <span class="at">--partial</span> drago:~/big_output.h5 . <span class="co"># partial resumes the transfer if it drops</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section>
 <section>
 <section id="part-3-reproducible-python" class="title-slide slide level1 center">
@@ -531,8 +548,22 @@ Riccardo Cappuzzo
 <li>Forgotten packages turn out to be vital</li>
 </ul>
 <div class="important">
-<p>The environment is part of the method section</p>
+<p>The environment is part of the method</p>
 </div>
+</section>
+<section id="pinning-boring-essential" class="slide level2">
+<h2>Pinning: boring, essential</h2>
+<ul>
+<li><code>numpy&gt;=1.24</code> is not enough – <code>numpy==1.24.3</code> is a necessity
+<ul>
+<li>Later package versions may break/deprecate functions your code relies on</li>
+</ul></li>
+<li>Lockfiles (<code>uv.lock</code>, <code>pixi.lock</code>) pin <strong>everything</strong>, transitively</li>
+<li>Rule: <em><code>requirements.txt</code> pinned = the environment your results came from</em></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb8-1"><a href=""></a>numpy==1.24.3</span>
+<span id="cb8-2"><a href=""></a>pandas==2.1.1</span>
+<span id="cb8-3"><a href=""></a>matplotlib==3.8.0</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="pixi-environments-as-files" class="slide level2">
 <h2>pixi: environments as files</h2>
@@ -540,44 +571,74 @@ Riccardo Cappuzzo
 <li>One <code>pixi.toml</code> = python version + deps + <strong>tasks</strong>, cross-platform</li>
 <li>Conda ecosystem (CUDA, system libs) with a lockfile</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb8-1"><a href=""></a><span class="kw">[dependencies]</span></span>
-<span id="cb8-2"><a href=""></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"3.11.*"</span></span>
-<span id="cb8-3"><a href=""></a><span class="dt">numpy</span>  <span class="op">=</span> <span class="st">"&gt;=1.24,&lt;2"</span></span>
-<span id="cb8-4"><a href=""></a><span class="dt">ruff</span>   <span class="op">=</span> <span class="st">"&gt;=0.1"</span></span>
-<span id="cb8-5"><a href=""></a></span>
-<span id="cb8-6"><a href=""></a><span class="kw">[tasks]</span></span>
-<span id="cb8-7"><a href=""></a><span class="dt">train</span> <span class="op">=</span> <span class="st">"python train.py"</span></span>
-<span id="cb8-8"><a href=""></a><span class="dt">test</span>  <span class="op">=</span> <span class="st">"pytest tests/"</span></span>
-<span id="cb8-9"><a href=""></a><span class="co"># Combine complex tasks in a single command, set env variables</span></span>
-<span id="cb8-10"><a href=""></a><span class="dt">render</span> <span class="op">=</span> <span class="op">{</span><span class="dt">cmd</span><span class="op"> =</span> <span class="st">"quarto render &amp;&amp; cp -r slides/data/dataop_report/ _build/slides/data/ &amp;&amp; cp data/adult_census.html _build/slides/"</span><span class="op">, </span><span class="dt">env</span><span class="op"> =</span> <span class="op">{ </span><span class="dt">"SKB_TABLE_REPORT_VERBOSITY"</span><span class="op"> =</span> <span class="st">"0"</span><span class="op"> }}</span></span>
-<span id="cb8-11"><a href=""></a><span class="co"># Have tasks depend on each other</span></span>
-<span id="cb8-12"><a href=""></a><span class="dt">serve</span> <span class="op">=</span> <span class="op">{ </span><span class="dt">cmd</span><span class="op"> =</span> <span class="st">"python -m http.server --directory _build 8000"</span><span class="op">, </span><span class="dt">depends-on</span><span class="op"> =</span> <span class="op">[</span></span>
-<span id="cb8-13"><a href=""></a>    <span class="st">"render"</span><span class="op">,</span> <span class="st">"copy-jupyterlite"</span></span>
-<span id="cb8-14"><a href=""></a><span class="op">] }</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href=""></a><span class="ex">pixi</span> run train        <span class="co"># just works, everywhere</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb9-1"><a href=""></a><span class="kw">[dependencies]</span></span>
+<span id="cb9-2"><a href=""></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"3.11.*"</span></span>
+<span id="cb9-3"><a href=""></a><span class="dt">numpy</span>  <span class="op">=</span> <span class="st">"&gt;=1.24,&lt;2"</span></span>
+<span id="cb9-4"><a href=""></a><span class="dt">ruff</span>   <span class="op">=</span> <span class="st">"&gt;=0.1"</span></span>
+<span id="cb9-5"><a href=""></a></span>
+<span id="cb9-6"><a href=""></a><span class="kw">[feature.special.dependencies]</span></span>
+<span id="cb9-7"><a href=""></a><span class="co"># Dependencies for a specific baseline</span></span>
+<span id="cb9-8"><a href=""></a><span class="dt">...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="pixi-define-and-run-complex-tasks" class="slide level2">
+<h2>pixi: define and run complex tasks</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb10-1"><a href=""></a><span class="kw">[tasks]</span></span>
+<span id="cb10-2"><a href=""></a><span class="dt">train</span> <span class="op">=</span> <span class="st">"python train.py"</span></span>
+<span id="cb10-3"><a href=""></a><span class="dt">test</span>  <span class="op">=</span> <span class="st">"pytest tests/"</span></span>
+<span id="cb10-4"><a href=""></a><span class="co"># Combine complex tasks in a single command, set env variables</span></span>
+<span id="cb10-5"><a href=""></a><span class="dt">render</span> <span class="op">=</span> <span class="op">{</span><span class="dt">cmd</span><span class="op"> =</span> <span class="st">"quarto render &amp;&amp; cp -r slides/data/dataop_report/ _build/slides/data/"</span><span class="op">, </span><span class="dt">env</span><span class="op"> =</span> <span class="op">{ </span><span class="dt">"SKB_TABLE_REPORT_VERBOSITY"</span><span class="op"> =</span> <span class="st">"0"</span><span class="op"> }}</span></span>
+<span id="cb10-6"><a href=""></a><span class="co"># Have tasks depend on each other</span></span>
+<span id="cb10-7"><a href=""></a><span class="dt">serve</span> <span class="op">=</span> <span class="op">{ </span><span class="dt">cmd</span><span class="op"> =</span> <span class="st">"python -m http.server --directory _build 8000"</span><span class="op">, </span><span class="dt">depends-on</span><span class="op"> =</span> <span class="op">[</span><span class="st">"render"</span><span class="op">]}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href=""></a><span class="co"># run the task `train` in the default environment</span></span>
+<span id="cb11-2"><a href=""></a><span class="ex">pixi</span> run train</span>
+<span id="cb11-3"><a href=""></a><span class="co"># run the training in the environment `special`</span></span>
+<span id="cb11-4"><a href=""></a><span class="ex">pixi</span> run <span class="at">-e</span> special train</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="uv-gotta-go-fast" class="slide level2">
 <h2>uv: gotta go fast 🏎️</h2>
 <ul>
 <li>pip/venv/pip-tools in one Rust binary, <strong>10–100× faster</strong></li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href=""></a><span class="ex">uv</span> init my-paper-analysis <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> my-paper-analysis</span>
-<span id="cb10-2"><a href=""></a><span class="ex">uv</span> add numpy pandas matplotlib</span>
-<span id="cb10-3"><a href=""></a><span class="ex">uv</span> run python analysis.py     <span class="co"># right env, every time</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href=""></a><span class="ex">uv</span> init my-env <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> my-env</span>
+<span id="cb12-2"><a href=""></a><span class="ex">uv</span> add numpy pandas matplotlib</span>
+<span id="cb12-3"><a href=""></a><span class="ex">uv</span> run python analysis.py     <span class="co"># running from the `my-env` environment</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Replace <code>venv</code> and <code>pip</code>:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href=""></a><span class="ex">uv</span> venv my-env</span>
+<span id="cb13-2"><a href=""></a><span class="bu">source</span> my-env/bin/activate</span>
+<span id="cb13-3"><a href=""></a><span class="ex">uv</span> pip install pandas scikit-learn</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="tip">
-<p>Rule of thumb: <strong>uv</strong> for pure-Python projects, <strong>pixi</strong> when you need conda packages (CUDA, geospatial stacks).</p>
+<p>Rule of thumb: <strong>uv</strong> for pure-Python projects, <strong>pixi</strong> for CUDA, tasks, environment-specific operations.</p>
 </div>
-<p>I use both tools, for different reasons.</p>
+</section>
+<section id="uv-vs-pixi" class="slide level2">
+<h2>uv vs pixi</h2>
+<div class="columns">
+<div class="column">
+<h3 id="uv">uv</h3>
+<ul>
+<li>My “main” environment which I use for most operations</li>
+<li>Scratch, temporary environments to test specific package versions</li>
+</ul>
+</div><div class="column">
+<h3 id="pixi">pixi</h3>
+<ul>
+<li>Testing different package combinations</li>
+<li>Complex sequences of tasks</li>
+<li>Executing specific commands in specific environments</li>
+</ul>
+</div></div>
 </section>
 <section id="demo-4-env-in-10-seconds" class="slide level2 demo scrollable">
 <h2>🎬 Demo 4 — env in 10 seconds</h2>
 <ol type="1">
-<li><code>uv init</code> + <code>uv add</code> a stack → watch it finish before you blink</li>
+<li><code>uv init</code> + <code>uv add</code> a stack</li>
 <li><code>uv run</code> inside the project</li>
 <li>Show <code>pixi.toml</code> + lockfile of a real project</li>
 </ol>
 <aside class="notes">
-<p><strong>Demo script (to be built):</strong> - Time-box it: run <code>uv add numpy pandas scipy matplotlib</code> and let the audience see it finish in seconds. Compare to a slide saying “conda solve: 4 minutes”. - Show the <code>uv.lock</code> file — “this file IS the reproducibility”. - Sample project config lives in <code>demo/uv-pixi/pixi.toml</code>.</p>
+<p><strong>Demo script (to be built):</strong> - Time-box it: run <code>uv add numpy pandas scipy matplotlib</code> - Show the <code>uv.lock</code> file - Sample project config lives in <code>demo/uv-pixi/pixi.toml</code>.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -590,40 +651,30 @@ Riccardo Cappuzzo
           display:block!important;
       }</style></aside>
 </section>
-<section id="pinning-boring-essential" class="slide level2">
-<h2>Pinning: boring, essential</h2>
+<section id="ruff-clean-up-your-codebase" class="slide level2">
+<h2>ruff: clean up your codebase</h2>
 <ul>
-<li><code>numpy&gt;=1.24</code> is a wish; <code>numpy==1.24.3</code> is a fact</li>
-<li>Lockfiles (<code>uv.lock</code>, <code>pixi.lock</code>) pin <strong>everything</strong>, transitively</li>
-<li>Rule: <em><code>requirements.txt</code> pinned = the environment your results came from</em></li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb11-1"><a href=""></a>numpy==1.24.3</span>
-<span id="cb11-2"><a href=""></a>pandas==2.1.1</span>
-<span id="cb11-3"><a href=""></a>matplotlib==3.8.0</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="ruff-lint-format-one-tool" class="slide level2">
-<h2>ruff: lint + format, one tool</h2>
-<ul>
+<li>Linting and formatting in one tool</li>
 <li>Replaces flake8, isort, black, pylint – and it’s <strong>instant</strong></li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb12-1"><a href=""></a><span class="kw">[tool.ruff]</span></span>
-<span id="cb12-2"><a href=""></a><span class="dt">line-length</span> <span class="op">=</span> <span class="dv">88</span></span>
-<span id="cb12-3"><a href=""></a></span>
-<span id="cb12-4"><a href=""></a><span class="kw">[tool.ruff.lint]</span></span>
-<span id="cb12-5"><a href=""></a><span class="dt">select</span> <span class="op">=</span> <span class="op">[</span><span class="st">"E"</span><span class="op">,</span> <span class="st">"F"</span><span class="op">,</span> <span class="st">"I"</span><span class="op">,</span> <span class="st">"N"</span><span class="op">,</span> <span class="st">"UP"</span><span class="op">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href=""></a><span class="ex">ruff</span> check .          <span class="co"># find problems</span></span>
-<span id="cb13-2"><a href=""></a><span class="ex">ruff</span> check <span class="at">--fix</span> .    <span class="co"># fix them</span></span>
-<span id="cb13-3"><a href=""></a><span class="ex">ruff</span> format .         <span class="co"># black-style formatting</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb14-1"><a href=""></a><span class="kw">[tool.ruff]</span></span>
+<span id="cb14-2"><a href=""></a><span class="dt">line-length</span> <span class="op">=</span> <span class="dv">88</span></span>
+<span id="cb14-3"><a href=""></a></span>
+<span id="cb14-4"><a href=""></a><span class="kw">[tool.ruff.lint]</span></span>
+<span id="cb14-5"><a href=""></a><span class="dt">select</span> <span class="op">=</span> <span class="op">[</span><span class="st">"E"</span><span class="op">,</span> <span class="st">"F"</span><span class="op">,</span> <span class="st">"I"</span><span class="op">,</span> <span class="st">"N"</span><span class="op">,</span> <span class="st">"UP"</span><span class="op">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href=""></a><span class="ex">ruff</span> check .          <span class="co"># find problems</span></span>
+<span id="cb15-2"><a href=""></a><span class="ex">ruff</span> check <span class="at">--fix</span> .    <span class="co"># fix them</span></span>
+<span id="cb15-3"><a href=""></a><span class="ex">ruff</span> format .         <span class="co"># black-style formatting</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="demo-5-ruff-fix" class="slide level2 demo scrollable">
 <h2>🎬 Demo 5 — ruff –fix</h2>
 <ol type="1">
-<li><code>cd demo/ruff-demo &amp;&amp; ruff check .</code> — the list of sins</li>
+<li><code>cd demo/ruff-demo &amp;&amp; ruff check .</code> — everything wrong with the code</li>
 <li><code>ruff check --fix . &amp;&amp; ruff format .</code></li>
 <li><code>git diff</code> — same code, readable</li>
 </ol>
 <aside class="notes">
-<p><strong>Demo script</strong> — material: <code>demo/ruff-demo/ugly.py</code> (unsorted imports, <code>.format()</code>, bare <code>except</code>, <code>== None</code>, …) - <code>ruff check .</code> — scroll the list briefly; no counting theatrics needed. - <code>ruff check --fix .</code> then <code>ruff format .</code> — the point is the <em>diff</em>, not the count. - <code>git diff</code> — imports sorted, f-strings, consistent style: same code, readable. - Mention what <code>--fix</code> deliberately leaves: bare <code>except</code>, <code>== None</code> — semantic issues a linter shouldn’t silently change. - Reset before the talk: <code>demo/reset.sh</code>.</p>
+<p><strong>Demo script</strong> — material: <code>demo/ruff-demo/ugly.py</code> (unsorted imports, <code>.format()</code>, bare <code>except</code>, <code>== None</code>, …) - <code>ruff check .</code> — scroll the list briefly - <code>ruff check --fix .</code> then <code>ruff format .</code> — the point is the <em>diff</em> - <code>git diff</code> — imports sorted, f-strings, consistent style: same code, readable. - Mention what <code>--fix</code> deliberately leaves: bare <code>except</code>, <code>== None</code> — semantic issues a linter shouldn’t silently change. - Reset before the talk: <code>demo/reset.sh</code>.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -640,14 +691,18 @@ Riccardo Cappuzzo
 <h2>ipython: a (much) better python console</h2>
 <ul>
 <li><code>%history</code>, <code>?</code> and <code>??</code> for introspection</li>
-<li><code>%autoreload 2</code> – edit module, REPL sees it instantly</li>
 <li>Tab completion <em>everywhere</em>, even dict keys</li>
 <li>custom config – same setup every time you run the console</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href=""></a><span class="op">%</span>autoreload <span class="dv">2</span></span>
-<span id="cb14-2"><a href=""></a>df.head?          <span class="co"># source of .head()</span></span>
-<span id="cb14-3"><a href=""></a><span class="op">%</span>run myscript.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb15-1"><a href=""></a>ipython -i myscript.py # execute script, then interactive mode</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href=""></a>df.head?          <span class="co"># source of .head()</span></span>
+<span id="cb16-2"><a href=""></a><span class="op">%</span>run myscript.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb17-1"><a href=""></a>ipython -i myscript.py # execute script, then interactive mode</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="tip">
+<p>In a jupyter notebook:</p>
+<ul>
+<li><code>%autoreload 2</code> – edit module, REPL sees it instantly</li>
+</ul>
+</div>
 <aside class="notes">
 <p>Quick mention — most people know Jupyter. The <code>%autoreload</code> trick is the one worth pausing on.</p>
 <style type="text/css">
@@ -678,9 +733,9 @@ Riccardo Cappuzzo
 <li>Branches are free: experiments never touch <code>main</code></li>
 <li><strong>Tag important results</strong>: the exact code that produced Figure 3, the final version before the deadline</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href=""></a><span class="fu">git</span> checkout <span class="at">-b</span> exp/nn-v2</span>
-<span id="cb16-2"><a href=""></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add dropout; accuracy 87.2% on val"</span></span>
-<span id="cb16-3"><a href=""></a><span class="fu">git</span> tag <span class="at">-a</span> v1.0-baseline</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href=""></a><span class="fu">git</span> checkout <span class="at">-b</span> exp/nn-v2</span>
+<span id="cb18-2"><a href=""></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add dropout; accuracy 87.2% on val"</span></span>
+<span id="cb18-3"><a href=""></a><span class="fu">git</span> tag <span class="at">-a</span> v1.0-baseline</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="tip">
 <p>Use tags like a time machine: <code>git diff v1.0-baseline HEAD</code> shows <em>exactly</em> what changed between the two results in your paper.</p>
 </div>
@@ -694,12 +749,16 @@ Riccardo Cappuzzo
 <h2></h2>
 
 <img data-src="images/real_programmers.png" class="r-stretch quarto-figure-center"><p class="caption">https://xkcd.com/378/</p></section>
-<section id="but-why-part-2" class="slide level2">
+<section id="but-why-part-2" class="slide level2 scrollable">
 <h2>But why? Part 2</h2>
 <ul>
 <li>It’s on <strong>every machine you’ll ever SSH into</strong> — clusters, servers, login nodes</li>
 <li>“How do I exit vim?” is a meme for a reason: it’s worth to learn how to survive</li>
-<li>Modal editing = <strong>verbs + nouns</strong></li>
+<li>Modal editing = <strong>verbs + nouns</strong>
+<ul>
+<li><code>INSERT</code>, <code>NORMAL</code>, <code>VISUAL</code></li>
+</ul></li>
+<li>Editing becomes <em>fast</em> and <em>fun</em><sup>1</sup></li>
 </ul>
 <div class="tip">
 <p>You don’t have to <em>live</em> in vim. Learn how to survive, then take the keybindings back to your IDE (with extensions).</p>
@@ -721,7 +780,7 @@ Riccardo Cappuzzo
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</section>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>(ok maybe the latter is only for me)</p></li></ol></aside></section>
 <section id="vim-survival-101" class="slide level2">
 <h2>Vim survival 101</h2>
 <ul>
@@ -729,20 +788,12 @@ Riccardo Cappuzzo
 <li><p><strong>Move</strong>: <code>h j k l</code> · <code>w</code> <code>b</code> words · <code>0</code> <code>$</code> line ends · <code>gg</code> <code>G</code> file ends</p></li>
 <li><p><strong>Edit</strong>: <code>dd</code> delete line · <code>yy</code> copy line · <code>p</code> paste · <code>u</code> undo · <code>Ctrl-r</code> redo</p></li>
 <li><p><strong>Search</strong>: <code>/pattern</code> then <code>n</code></p></li>
+<li><p><strong>Commands</strong>: <code>:</code> followed by a letter – write changes with <code>:w</code></p></li>
+<li><p><strong>Actually exiting vim</strong>: exit with <code>:q</code>, without saving with <code>:q!</code>, write and exit <code>:wq</code></p></li>
 </ul>
 <p><strong>The magic</strong>: <code>ciw</code> change inner word · <code>ci"</code> inside quotes · <code>ci(</code> inside parens</p>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Tip</strong></p>
-</div>
-<div class="callout-content">
+<div class="tip">
 <p>Rebind your <code>CAPS</code> key to <code>Esc</code>. You’ll thank me later.</p>
-</div>
-</div>
 </div>
 <aside class="notes">
 <p>This is a cheat-sheet slide, not a lecture — it stays up while you talk. The game changer is <code>c</code> + a motion (“change until”, “change inside”): once people see <code>ci"</code>, they understand why vim people are insufferable.</p>
@@ -789,24 +840,8 @@ Riccardo Cappuzzo
 <li>keep the IDE, learn the muscle memory</li>
 <li>(it’s how I picked up the habit!)</li>
 </ul></li>
-<li><strong>Level 3 — rabbit hole</strong>: neovim &amp; more
-<ul>
-<li>do it on a break, not mid-thesis</li>
-</ul></li>
+<li><strong>Level 3 — rabbit hole</strong>: neovim &amp; more</li>
 </ul>
-<aside class="notes">
-<p>For academics, Level 2 is the sweet spot — say that explicitly. Level 3 people exist in every lab and love to help; find yours.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section></section>
 <section>
 <section id="part-6-writing-diagrams" class="title-slide slide level1 center">
@@ -815,31 +850,20 @@ Riccardo Cappuzzo
 </section>
 <section id="zotero-references-on-autopilot" class="slide level2">
 <h2>Zotero: references on autopilot</h2>
+<p><a href="https://www.zotero.org">Zotero homepage</a></p>
 <ul>
 <li>Browser connector grabs papers in one click, PDF + metadata</li>
 <li>Word/Google Docs/LaTeX integration -&gt; no need to type citations by hand</li>
 <li>Groups for lab reading lists</li>
 </ul>
-<aside class="notes">
-<p>If the audience is LaTeX users, show the Better BibTeX key export in one sentence. If Docs users, show the plugin. Ask who they are, live.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 <section id="quarto-write-once-publish-everywhere" class="slide level2">
 <h2>Quarto: write once, publish everywhere</h2>
+<p><a href="https://quarto.org/docs/guide/">Quarto homepage</a></p>
 <ul>
-<li>One <code>.qmd</code> (markdown + code) → <strong>PDF, HTML site, slides, Word</strong></li>
-<li>Code + output + prose live together → results can’t drift from text</li>
-<li>These very slides? A Quarto file.</li>
+<li>One <code>.qmd</code> (markdown + code) -&gt; <strong>PDF, HTML site, slides, Word</strong></li>
+<li>Code + output + prose live together -&gt; results can’t drift from text</li>
+<li>These slides? A Quarto file.</li>
 </ul>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
@@ -854,45 +878,11 @@ Riccardo Cappuzzo
 </div>
 </div>
 </div>
-<aside class="notes">
-<p>Point at the screen: “these slides, the same content could be a thesis chapter or a blog post, one file, three outputs.”</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="demo-7-quarto-yes-these-slides" class="slide level2 demo scrollable">
-<h2>🎬 Demo 7 — Quarto (yes, these slides)</h2>
-<ol type="1">
-<li>Open <code>index.qmd</code>, edit a bullet <strong>live</strong></li>
-<li>Render in the background → slide updates</li>
-<li>Show a code chunk that computes a number <em>in</em> the slides</li>
-</ol>
-<aside class="notes">
-<p><strong>Demo script (to be built):</strong> - The meta-demo: edit the very deck they’re watching. Risky, high reward. - Emphasize: the roadmap diagram earlier was Mermaid text inside this file.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 <section id="diagrams-as-text-mermaid-graphviz" class="slide level2">
 <h2>Diagrams as text: Mermaid &amp; Graphviz</h2>
 <ul>
-<li>Versionable, diffable, and fast to edit — no “final_v2.drawio.png”</li>
+<li>Versionable, diffable, and fast to edit</li>
 </ul>
 <div class="cell" data-reveal="true" data-fig-height="3.5" data-layout-align="default">
 <div class="cell-output-display">
@@ -913,27 +903,31 @@ Riccardo Cappuzzo
 </div>
 </div>
 <div class="tip">
-<p>Excalidraw when you need to <em>think</em> freehand; Mermaid/Graphviz when the diagram needs to <em>live in the repo</em>.</p>
+<p><a href="https://excalidraw.com">Excalidraw</a> when you need to <em>think</em> freehand; Mermaid/Graphviz when the diagram needs to <em>live in the repo</em>.</p>
 </div>
 </section></section>
 <section>
 <section id="part-7-ai-briefly" class="title-slide slide level1 center">
 <h1>Part 7 — AI, briefly</h1>
 <blockquote>
-<p><em>If you know the enemy and know yourself, you need not fear the result of a hundred battles.</em> — <strong>Sun Tzu (probably)</strong></p>
+<p><em>If you know the enemy and know yourself, you need not fear the result of a hundred battles.</em> — <strong>Sun Tzu</strong></p>
 </blockquote>
 </section>
 <section id="ai-assistants-be-deliberate" class="slide level2">
 <h2>AI assistants: be deliberate</h2>
 <ul>
-<li><strong>Copilot</strong>: autocomplete that knows your repo — pay attention to <em>what you paste</em></li>
-<li><strong>OpenRouter</strong>: one API key → hundreds of models, pay per token used
+<li><strong>Copilot</strong>: work directly from your IDE, in your project</li>
+<li><strong>Agent harnesses</strong>: OpenCode, pi.dev, Claude Code …
+<ul>
+<li>Give agents terminal access</li>
+<li>Be mindful of permissions</li>
+</ul></li>
+<li><strong>OpenRouter</strong>: one API key -&gt; hundreds of models, pay per token used
 <ul>
 <li>use cheap models for boilerplate, strong models for hard bugs</li>
 <li>use strong models to draft instructions for cheaper models</li>
-<li>open-weights models when privacy matters</li>
 </ul></li>
-<li>Your data / your paper drafts: <strong>read the terms before pasting</strong></li>
+<li>Your data / your paper drafts: <strong>read the terms before feeding your data into the machine</strong></li>
 </ul>
 <aside class="notes">
 <p>Keep this balanced and short: the audience ranges from AI-allergic to AI-dependent. The cost math slide from the outline is available in the repo.</p>
@@ -949,8 +943,15 @@ Riccardo Cappuzzo
           display:block!important;
       }</style></aside>
 </section>
-<section id="drafting-this-talk" class="slide level2">
-<h2>Drafting this talk?</h2>
+<section id="dont-know-where-to-start" class="slide level2">
+<h2>Don’t know where to start?</h2>
+<div class="tip">
+<p>Describe your workflow to an AI chat, ask for suggestions on how to be more productive.</p>
+<p>It’s how I found out about many of these tools.</p>
+</div>
+</section>
+<section id="the-first-draft-of-this-talk" class="slide level2">
+<h2>The first draft of this talk?</h2>
 <p>0.04€ with GLM-5.3 Flash on OpenRouter</p>
 </section></section>
 <section>
@@ -971,7 +972,7 @@ Riccardo Cappuzzo
 <section id="steal-this" class="slide level2">
 <h2>Steal this</h2>
 <ul>
-<li>Slides &amp; examples: <code>&lt;&lt;repo-url&gt;&gt;</code>
+<li>Slides &amp; examples: <code>https://github.com/rcap107/tooling-talk</code>
 <ul>
 <li><code>.zshrc.example</code>, <code>tmux.conf.example</code>, <code>pixi.toml</code>, <code>ruff.toml</code>…</li>
 </ul></li>

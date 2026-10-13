@@ -32,15 +32,13 @@ css: styles.css
 > The best way to get the right answer on the Internet is not to ask a question; it's to post the wrong answer.
 > — **Cunningham's Law**
 
-- Today I will say wrong things on purpose[^1]. **Correct me.**
-
-[^1]: Ok, not *on purpose*.
+- If I say something wrong, **correct me.**
 
 
 ## The other law
 
 > Premature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3%.
-> — **Knuth**
+> — **Knuth's adage**
 
 - Same for tooling: **don't** build a perfect pipeline on day 1.
 - **Do** notice the critical 3%: the things you do 100×/day
@@ -57,7 +55,7 @@ css: styles.css
 ## Why bother?
 ![https://xkcd.com/1205/](images/is_it_worth_the_time_2x.png)
 
-## Why bother?
+## Why bother? Reproducibility! 
 
 - You will need to re-run your analysis
   - Months later, for a rebuttal
@@ -65,7 +63,11 @@ css: styles.css
   - Even more months later, for a separate paper
 - Reviewers / collaborators / your future self need **reproducibility**
   	- People will come back to your repo and try to replicate your results
+
+## Why bother? Time savings! 
+
 - All time saved **compounds**: 10 min/day ≈ **40 hours/year**
+- Reliable workflow and code -> less time wasted fixing avoidable problems 
 
 ::: {.tip}
 The goal is not more tools. The goal is **fewer keystrokes for the things you do constantly**.
@@ -98,7 +100,11 @@ Mention this is mermaid
   - `zsh-autocomplete`
 - Quick navigation with [zoxide](https://zoxide.org)
 
-## Aliases: make frequent commands quick to type
+## Aliases
+
+- `alias` lets you replace a full command with a shorthand
+- No need to remember the actual command
+- Much faster to type
 
 ```bash
 alias ll='ls -lah'
@@ -106,7 +112,8 @@ alias gst='git status'
 alias python='python3'
 ```
 
-Some of the commands I use on a daily basis:
+Some aliases I use on a daily basis:
+
 ```bash
 alias dc="pixi run -e doc build-doc-quick"
 alias odo="open ~/work/skrub/doc/_build/html/index.html"
@@ -145,7 +152,7 @@ rg "TODO|FIXME" --count            # how many things do I have left to do?
 ```
 
 ::: {.tip}
-Pair it with `fzf`: `Ctrl+T` inserts any file path, fuzzy-matched.
+Pair it with `fzf`: `Ctrl+T` inserts any fuzzy-matched file path.
 :::
 
 ## Reading things: bat
@@ -155,6 +162,7 @@ Pair it with `fzf`: `Ctrl+T` inserts any file path, fuzzy-matched.
 ```bash
 bat script.py
 bat script.py --line-range 10:20
+bat -p script.py # plain output (better for copying)
 git diff | bat          # readable diffs
 ```
 
@@ -179,8 +187,12 @@ Demo 2 combines ripgrep + bat: search for a function, then page to it. The point
 
 - **`open .`** — open anything (folder, file, URL) from the shell
 - **[nnn](https://github.com/jarun/nnn)** — terminal file manager, keyboard-only
-- **[Raycast](https://www.raycast.com)** — Spotlight on steroids: clipboard history, window management
 - **Custom search engines** — `z` + `Tab` in the browser -> search arXiv directly
+
+Mac only:
+
+- `pbcopy` and `pbpaste`: copy/paste from command line to OS clipboard
+- **[Raycast](https://www.raycast.com)** — Spotlight on steroids: clipboard history, window management
 
 # Part 2 — Long jobs & remote machines
 
@@ -235,7 +247,7 @@ Then simply: `ssh margaret`
 
 ```bash
 rsync -avz --exclude='*.npy' results/ drago:~/project/results/
-rsync -avz --partial drago:~/big_output.h5 .
+rsync -avz --partial drago:~/big_output.h5 . # partial resumes the transfer if it drops
 ```
 
 # Part 3 — Reproducible Python
@@ -253,9 +265,23 @@ But then:
 
 ::: {.important}
 
-The environment is part of the method section
+The environment is part of the method
 
 :::
+
+## Pinning: boring, essential
+
+- `numpy>=1.24` is not enough -- `numpy==1.24.3` is a necessity
+  - Later package versions may break/deprecate functions your code relies on
+- Lockfiles (`uv.lock`, `pixi.lock`) pin **everything**, transitively
+- Rule: *`requirements.txt` pinned = the environment your results came from*
+
+```text
+numpy==1.24.3
+pandas==2.1.1
+matplotlib==3.8.0
+```
+
 
 ## pixi: environments as files
 
@@ -268,10 +294,14 @@ python = "3.11.*"
 numpy  = ">=1.24,<2"
 ruff   = ">=0.1"
 
-[feature.dev.dependencies]
+[feature.special.dependencies]
 # Dependencies for a specific baseline
 ...
+```
 
+
+## pixi: define and run complex tasks
+```toml
 [tasks]
 train = "python train.py"
 test  = "pytest tests/"
@@ -284,8 +314,8 @@ serve = { cmd = "python -m http.server --directory _build 8000", depends-on = ["
 ```bash
 # run the task `train` in the default environment
 pixi run train
-# run the same task in a different environment with a different baseline
-pixi run -e special-baseline train
+# run the training in the environment `special`
+pixi run -e special train
 ```
 
 ## uv: gotta go fast 🏎️
@@ -296,7 +326,14 @@ pixi run -e special-baseline train
 uv init my-env && cd my-env
 uv add numpy pandas matplotlib
 uv run python analysis.py     # running from the `my-env` environment
-uv pip install ... # Drop-in replacement for pip, 10x faster
+```
+
+- Replace `venv` and `pip`:
+
+```bash
+uv venv my-env
+source my-env/bin/activate
+uv pip install pandas scikit-learn
 ```
 
 ::: {.tip}
@@ -340,21 +377,9 @@ Rule of thumb: **uv** for pure-Python projects, **pixi** for CUDA, tasks, enviro
 - Sample project config lives in `demo/uv-pixi/pixi.toml`.
 :::
 
-## Pinning: boring, essential
+## ruff: clean up your codebase
 
-- `numpy>=1.24` is not enough -- `numpy==1.24.3` is a necessity
-  - Later package versions may break/deprecate functions your code relies on
-- Lockfiles (`uv.lock`, `pixi.lock`) pin **everything**, transitively
-- Rule: *`requirements.txt` pinned = the environment your results came from*
-
-```text
-numpy==1.24.3
-pandas==2.1.1
-matplotlib==3.8.0
-```
-
-## ruff: lint + format, one tool
-
+- Linting and formatting in one tool
 - Replaces flake8, isort, black, pylint -- and it's **instant**
 
 ```toml
@@ -393,7 +418,6 @@ ruff format .         # black-style formatting
 - custom config -- same setup every time you run the console
 
 ```python
-%autoreload 2
 df.head?          # source of .head()
 %run myscript.py
 ```
@@ -445,6 +469,9 @@ Use tags like a time machine: `git diff v1.0-baseline HEAD` shows *exactly* what
 - "How do I exit vim?" is a meme for a reason: it's worth to learn how to survive
 - Modal editing = **verbs + nouns**
   - `INSERT`, `NORMAL`, `VISUAL`
+- Editing becomes _fast_ and _fun_[^1]
+
+[^1]: (ok maybe the latter is only for me)
 
 ::: {.tip}
 You don't have to *live* in vim. Learn how to survive, then take the keybindings back to your IDE (with extensions).
@@ -561,10 +588,9 @@ flowchart LR
 - **Agent harnesses**: OpenCode, pi.dev, Claude Code ... 
   - Give agents terminal access
   - Be mindful of permissions
-- **OpenRouter**: one API key → hundreds of models, pay per token used
+- **OpenRouter**: one API key -> hundreds of models, pay per token used
   - use cheap models for boilerplate, strong models for hard bugs
   - use strong models to draft instructions for cheaper models
-  - open-weights models when privacy matters
 - Your data / your paper drafts: **read the terms before feeding your data into the machine**
 
 ::: {.notes}
@@ -599,7 +625,7 @@ It's how I found out about many of these tools.
 
 ## Steal this
 
-- Slides & examples: `<<repo-url>>`
+- Slides & examples: `https://github.com/rcap107/tooling-talk`
   - `.zshrc.example`, `tmux.conf.example`, `pixi.toml`, `ruff.toml`…
 - Correction welcome: **Cunningham's Law is in effect** — tell me what I got wrong
 
