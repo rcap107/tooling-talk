@@ -96,6 +96,7 @@ Mention this is mermaid
 - Customize your shell config: `.zshrc`/`.bashrc`
 - [Oh My Zsh](https://ohmyz.sh): themes + plugins
   - `zsh-autocomplete`
+- Quick navigation with [zoxide](https://zoxide.org)
 
 ## Aliases: make frequent commands quick to type
 
@@ -133,7 +134,7 @@ alias dtest='pixi run -e dev pytest -doctest-modules skrub skrub/_docs/modules -
 
 ## Finding things: ripgrep
 
-- `grep` on steroids: **fast**, respects `.gitignore`, colourful
+- rip `grep` for a reason: **fast**, respects `.gitignore`, colourful
 
 ```bash
 rg "def calculate_mean"            # search the repo
@@ -174,12 +175,12 @@ Demo 2 combines ripgrep + bat: search for a function, then page to it. The point
 - Then read a hit comfortably: `bat src/train.py --line-range 1:25`.
 :::
 
-## Honourable mentions
+## Honorable mentions
 
 - **`open .`** — open anything (folder, file, URL) from the shell
 - **[nnn](https://github.com/jarun/nnn)** — terminal file manager, keyboard-only
 - **[Raycast](https://www.raycast.com)** — Spotlight on steroids: clipboard history, window management
-- **Custom search engines** — `z` + `Tab` in the browser → search arXiv directly
+- **Custom search engines** — `z` + `Tab` in the browser -> search arXiv directly
 
 # Part 2 — Long jobs & remote machines
 
@@ -198,14 +199,14 @@ tmux attach -t training  # reattach from anywhere
 ## 🎬 Demo 3 — tmux {.demo}
 
 1. Split panes: run a "long job" + `watch` its log
-2. Detach, close terminal entirely, reattach → still running
+2. Detach, close terminal entirely, reattach -> still running
 3. Copy text from tmux to system clipboard
 
 ::: {.notes}
 **Demo script** — script: `demo/tmux-demo/fake_train.py`
 - Pane 1: `python3 fake_train.py | tee train.log`; split, pane 2: `tail -f train.log`.
 - Detach, close the terminal, reopen, reattach.
-- Copy a loss value from the log with tmux copy-mode → paste in a chat window.
+- Copy a loss value from the log with tmux copy-mode -> paste in a chat window.
 :::
 
 ## SSH without pain
@@ -267,20 +268,24 @@ python = "3.11.*"
 numpy  = ">=1.24,<2"
 ruff   = ">=0.1"
 
+[feature.dev.dependencies]
+# Dependencies for a specific baseline
+...
+
 [tasks]
 train = "python train.py"
 test  = "pytest tests/"
 # Combine complex tasks in a single command, set env variables
-render = {cmd = "quarto render && cp -r slides/data/dataop_report/ _build/slides/data/ && cp data/adult_census.html _build/slides/", env = { "SKB_TABLE_REPORT_VERBOSITY" = "0" }}
+render = {cmd = "quarto render && cp -r slides/data/dataop_report/ _build/slides/data/", env = { "SKB_TABLE_REPORT_VERBOSITY" = "0" }}
 # Have tasks depend on each other
-serve = { cmd = "python -m http.server --directory _build 8000", depends-on = [
-    "render", "copy-jupyterlite"
-] }
-
+serve = { cmd = "python -m http.server --directory _build 8000", depends-on = ["render"]}
 ```
 
 ```bash
-pixi run train        # just works, everywhere
+# run the task `train` in the default environment
+pixi run train
+# run the same task in a different environment with a different baseline
+pixi run -e special-baseline train
 ```
 
 ## uv: gotta go fast 🏎️
@@ -288,33 +293,57 @@ pixi run train        # just works, everywhere
 - pip/venv/pip-tools in one Rust binary, **10–100× faster**
 
 ```bash
-uv init my-paper-analysis && cd my-paper-analysis
+uv init my-env && cd my-env
 uv add numpy pandas matplotlib
-uv run python analysis.py     # right env, every time
+uv run python analysis.py     # running from the `my-env` environment
+uv pip install ... # Drop-in replacement for pip, 10x faster
 ```
 
 ::: {.tip}
-Rule of thumb: **uv** for pure-Python projects, **pixi** when you need conda packages (CUDA, geospatial stacks).
+Rule of thumb: **uv** for pure-Python projects, **pixi** for CUDA, tasks, environment-specific operations.
 :::
 
-I use both tools, for different reasons.  
+## uv vs pixi
+
+
+::: {.columns}
+
+::: {.column}
+
+### uv
+- My "main" environment which I use for most operations
+- Scratch, temporary environments to test specific package versions
+
+:::
+
+::: {.column}
+
+### pixi
+- Testing different package combinations
+- Complex sequences of tasks
+- Executing specific commands in specific environments
+
+:::
+
+:::
 
 ## 🎬 Demo 4 — env in 10 seconds {.demo}
 
-1. `uv init` + `uv add` a stack → watch it finish before you blink
+1. `uv init` + `uv add` a stack 
 2. `uv run` inside the project
 3. Show `pixi.toml` + lockfile of a real project
 
 ::: {.notes}
 **Demo script (to be built):**
-- Time-box it: run `uv add numpy pandas scipy matplotlib` and let the audience see it finish in seconds. Compare to a slide saying "conda solve: 4 minutes".
-- Show the `uv.lock` file — "this file IS the reproducibility".
+- Time-box it: run `uv add numpy pandas scipy matplotlib`
+- Show the `uv.lock` file 
 - Sample project config lives in `demo/uv-pixi/pixi.toml`.
 :::
 
 ## Pinning: boring, essential
 
-- `numpy>=1.24` is a wish; `numpy==1.24.3` is a fact
+- `numpy>=1.24` is not enough -- `numpy==1.24.3` is a necessity
+  - Later package versions may break/deprecate functions your code relies on
 - Lockfiles (`uv.lock`, `pixi.lock`) pin **everything**, transitively
 - Rule: *`requirements.txt` pinned = the environment your results came from*
 
@@ -344,14 +373,14 @@ ruff format .         # black-style formatting
 
 ## 🎬 Demo 5 — ruff --fix {.demo}
 
-1. `cd demo/ruff-demo && ruff check .` — the list of sins
+1. `cd demo/ruff-demo && ruff check .` — everything wrong with the code
 2. `ruff check --fix . && ruff format .`
 3. `git diff` — same code, readable
 
 ::: {.notes}
 **Demo script** — material: `demo/ruff-demo/ugly.py` (unsorted imports, `.format()`, bare `except`, `== None`, …)
-- `ruff check .` — scroll the list briefly; no counting theatrics needed.
-- `ruff check --fix .` then `ruff format .` — the point is the *diff*, not the count.
+- `ruff check .` — scroll the list briefly
+- `ruff check --fix .` then `ruff format .` — the point is the *diff*
 - `git diff` — imports sorted, f-strings, consistent style: same code, readable.
 - Mention what `--fix` deliberately leaves: bare `except`, `== None` — semantic issues a linter shouldn't silently change.
 - Reset before the talk: `demo/reset.sh`.
@@ -360,7 +389,6 @@ ruff format .         # black-style formatting
 ## ipython: a (much) better python console
 
 - `%history`, `?` and `??` for introspection
-- `%autoreload 2` -- edit module, REPL sees it instantly
 - Tab completion *everywhere*, even dict keys
 - custom config -- same setup every time you run the console
 
@@ -374,6 +402,13 @@ df.head?          # source of .head()
 ipython -i myscript.py # execute script, then interactive mode
 ```
 
+::: {.tip}
+
+In a jupyter notebook:
+
+- `%autoreload 2` -- edit module, REPL sees it instantly
+
+:::
 
 ::: {.notes}
 Quick mention — most people know Jupyter. The `%autoreload` trick is the one worth pausing on.
@@ -431,6 +466,10 @@ You don't have to *live* in vim. Learn how to survive, then take the keybindings
  
 - **Search**: `/pattern` then `n`
 
+- **Commands**: `:` followed by a letter -- write changes with `:w`
+
+- **Actually exiting vim**: exit with `:q`, without saving with `:q!`, write and exit `:wq`
+
 **The magic**: `ciw` change inner word · `ci"` inside quotes · `ci(` inside parens
 
 ::: {.tip}
@@ -466,29 +505,24 @@ This is a cheat-sheet slide, not a lecture — it stays up while you talk. The g
   - keep the IDE, learn the muscle memory
   - (it's how I picked up the habit!)
 - **Level 3 — rabbit hole**: neovim & more
-  - do it on a break, not mid-thesis
-
-::: {.notes}
-For academics, Level 2 is the sweet spot — say that explicitly. Level 3 people exist in every lab and love to help; find yours.
-:::
 
 # Part 6 — Writing & diagrams
 
 ## Zotero: references on autopilot
 
+[Zotero homepage](https://www.zotero.org)
+
 - Browser connector grabs papers in one click, PDF + metadata
 - Word/Google Docs/LaTeX integration -> no need to type citations by hand 
 - Groups for lab reading lists
 
-::: {.notes}
-If the audience is LaTeX users, show the Better BibTeX key export in one sentence. If Docs users, show the plugin. Ask who they are, live.
-:::
-
 ## Quarto: write once, publish everywhere
 
-- One `.qmd` (markdown + code) → **PDF, HTML site, slides, Word**
-- Code + output + prose live together → results can't drift from text
-- These very slides? A Quarto file.
+[Quarto homepage](https://quarto.org/docs/guide/)
+
+- One `.qmd` (markdown + code) -> **PDF, HTML site, slides, Word**
+- Code + output + prose live together -> results can't drift from text
+- These slides? A Quarto file.
 
 ::: {.callout-warning}
 
@@ -497,25 +531,9 @@ Going from slides to blogs can be slightly to **extremely** janky.
 :::
 
 
-::: {.notes}
-Point at the screen: "these slides, the same content could be a thesis chapter or a blog post, one file, three outputs."
-:::
-
-## 🎬 Demo 7 — Quarto (yes, these slides) {.demo}
-
-1. Open `index.qmd`, edit a bullet **live**
-2. Render in the background → slide updates
-3. Show a code chunk that computes a number *in* the slides
-
-::: {.notes}
-**Demo script (to be built):**
-- The meta-demo: edit the very deck they're watching. Risky, high reward.
-- Emphasize: the roadmap diagram earlier was Mermaid text inside this file.
-:::
-
 ## Diagrams as text: Mermaid & Graphviz
 
-- Versionable, diffable, and fast to edit — no "final_v2.drawio.png"
+- Versionable, diffable, and fast to edit
 
 ```{mermaid}
 %%| fig-height: 3.5
@@ -529,29 +547,42 @@ flowchart LR
 ```
 
 ::: {.tip}
-Excalidraw when you need to *think* freehand; Mermaid/Graphviz when the diagram needs to *live in the repo*.
+[Excalidraw](https://excalidraw.com) when you need to *think* freehand; Mermaid/Graphviz when the diagram needs to *live in the repo*.
 :::
 
 # Part 7 — AI, briefly
 
 > *If you know the enemy and know yourself, you need not fear the result of a hundred battles.*
-> — **Sun Tzu (probably)**
-
+> — **Sun Tzu**
 
 ## AI assistants: be deliberate
 
-- **Copilot**: autocomplete that knows your repo — pay attention to *what you paste*
+- **Copilot**: work directly from your IDE, in your project
+- **Agent harnesses**: OpenCode, pi.dev, Claude Code ... 
+  - Give agents terminal access
+  - Be mindful of permissions
 - **OpenRouter**: one API key → hundreds of models, pay per token used
   - use cheap models for boilerplate, strong models for hard bugs
   - use strong models to draft instructions for cheaper models
   - open-weights models when privacy matters
-- Your data / your paper drafts: **read the terms before pasting**
+- Your data / your paper drafts: **read the terms before feeding your data into the machine**
 
 ::: {.notes}
 Keep this balanced and short: the audience ranges from AI-allergic to AI-dependent. The cost math slide from the outline is available in the repo.
 :::
 
-## Drafting this talk? 
+## Don't know where to start? 
+
+::: {.tip}
+
+Describe your workflow to an AI chat, ask for suggestions on how to be more productive.
+
+It's how I found out about many of these tools.
+
+:::
+
+
+## The first draft of this talk? 
 
 0.04€ with GLM-5.3 Flash on OpenRouter
 
