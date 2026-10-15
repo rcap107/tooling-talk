@@ -92,13 +92,31 @@ Mention this is mermaid
 
 # Part 1 — The shell
 
+## 
+- .zshrc
+- Themes and plugins: Oh my zsh
+- Folder navigation: zoxide
+- Aliases
+- Searching the history
+- Search text: `ripgrep`
+- Read text: `bat`
+
 ## Living in the terminal: zsh
 
 - Remote sessions means working from a terminal. **Decorate it.**
 - Customize your shell config: `.zshrc`/`.bashrc`
 - [Oh My Zsh](https://ohmyz.sh): themes + plugins
   - `zsh-autocomplete`
+
+## Folder navigation with zoxide
 - Quick navigation with [zoxide](https://zoxide.org)
+
+```shell
+z PART_OF_PATH
+
+# list folders
+zoxide query -l 
+```
 
 ## Aliases
 
@@ -120,24 +138,11 @@ alias odo="open ~/work/skrub/doc/_build/html/index.html"
 alias dtest='pixi run -e dev pytest -doctest-modules skrub skrub/_docs/modules --ignore-glob="*/test_*.py" --doctest-glob="*.rst"' --ignore-glob="doc/*"
 ```
 
+## Shell history
 
-::: {.notes}
-- Show `~/.zshrc` briefly — don't read the whole file.
-- Emphasize: aliases are personal. Mine are an example, make your own. 
-:::
-
-## 🎬 Demo 1 — Recall & navigate {.demo}
-
-1. `Ctrl+R` (fuzzy history search via fzf)
-2. `z myproj` — jump anywhere ([zoxide](https://zoxide.org))
-3. Aliases
-
-::: {.notes}
-**Demo script** — config: `demo/shell-config/zshrc.snippet.zsh`
-- `Ctrl+R` then `rsync` — history found instantly.
-- `Ctrl+T` — fuzzy file picker with a live bat preview (toggle with `Ctrl+/`).
-- `z work` → jumps to a deeply nested project dir. "No more `cd ../../../../`".
-:::
+```shell
+Ctrl+R 
+```
 
 ## Finding things: ripgrep
 
@@ -166,23 +171,6 @@ bat -p script.py # plain output (better for copying)
 git diff | bat          # readable diffs
 ```
 
-::: {.notes}
-Demo 2 combines ripgrep + bat: search for a function, then page to it. The point: you stop opening an IDE to find one line.
-:::
-
-## 🎬 Demo 2 — Search & read {.demo}
-
-1. `rg "TODO"` across a messy project
-2. `rg "learning_rate" --type py -C 2`
-3. Pipe a file / diff into `bat`
-
-::: {.notes}
-**Demo script** — sample repo: `demo/messy-project/`
-- `rg -c "TODO|FIXME"`: how how many things in the backlog? (`src/train.py`: 5)
-- `rg learning_rate` hits 4 files; the "secret" one in `data/` stays hidden — `.gitignore` respected. Then `rg --no-ignore SECRET` finds it. "grep doesn't do that."
-- Then read a hit comfortably: `bat src/train.py --line-range 1:25`.
-:::
-
 ## Honorable mentions
 
 - **`open .`** — open anything (folder, file, URL) from the shell
@@ -196,6 +184,11 @@ Mac only:
 
 # Part 2 — Long jobs & remote machines
 
+## 
+- tmux
+- SSH configuration
+- rsync
+
 ## tmux: your terminal, inside your terminal
 
 - **Sessions** survive SSH disconnects, laptop sleeps, crashed VPNs
@@ -207,19 +200,6 @@ tmux new -s training     # start a session
 Ctrl-b d                 # detach (job keeps running!)
 tmux attach -t training  # reattach from anywhere
 ```
-
-## 🎬 Demo 3 — tmux {.demo}
-
-1. Split panes: run a "long job" + `watch` its log
-2. Detach, close terminal entirely, reattach -> still running
-3. Copy text from tmux to system clipboard
-
-::: {.notes}
-**Demo script** — script: `demo/tmux-demo/fake_train.py`
-- Pane 1: `python3 fake_train.py | tee train.log`; split, pane 2: `tail -f train.log`.
-- Detach, close the terminal, reopen, reattach.
-- Copy a loss value from the log with tmux copy-mode -> paste in a chat window.
-:::
 
 ## SSH without pain
 
@@ -251,6 +231,13 @@ rsync -avz --partial drago:~/big_output.h5 . # partial resumes the transfer if i
 ```
 
 # Part 3 — Reproducible Python
+
+## 
+- Pinning requirements
+- pixi: lockfile, multiple environments, tasks
+- uv: lightning fast environments
+- ruff: code formatting
+- ipython: a much better python console
 
 ## "It works on my machine"
 
@@ -364,18 +351,6 @@ Rule of thumb: **uv** for pure-Python projects, **pixi** for CUDA, tasks, enviro
 
 :::
 
-## 🎬 Demo 4 — env in 10 seconds {.demo}
-
-1. `uv init` + `uv add` a stack 
-2. `uv run` inside the project
-3. Show `pixi.toml` + lockfile of a real project
-
-::: {.notes}
-**Demo script (to be built):**
-- Time-box it: run `uv add numpy pandas scipy matplotlib`
-- Show the `uv.lock` file 
-- Sample project config lives in `demo/uv-pixi/pixi.toml`.
-:::
 
 ## ruff: clean up your codebase
 
@@ -395,21 +370,6 @@ ruff check .          # find problems
 ruff check --fix .    # fix them
 ruff format .         # black-style formatting
 ```
-
-## 🎬 Demo 5 — ruff --fix {.demo}
-
-1. `cd demo/ruff-demo && ruff check .` — everything wrong with the code
-2. `ruff check --fix . && ruff format .`
-3. `git diff` — same code, readable
-
-::: {.notes}
-**Demo script** — material: `demo/ruff-demo/ugly.py` (unsorted imports, `.format()`, bare `except`, `== None`, …)
-- `ruff check .` — scroll the list briefly
-- `ruff check --fix .` then `ruff format .` — the point is the *diff*
-- `git diff` — imports sorted, f-strings, consistent style: same code, readable.
-- Mention what `--fix` deliberately leaves: bare `except`, `== None` — semantic issues a linter shouldn't silently change.
-- Reset before the talk: `demo/reset.sh`.
-:::
 
 ## ipython: a (much) better python console
 
@@ -434,9 +394,6 @@ In a jupyter notebook:
 
 :::
 
-::: {.notes}
-Quick mention — most people know Jupyter. The `%autoreload` trick is the one worth pausing on.
-:::
 
 # Part 4 — Git for research
 
@@ -449,7 +406,7 @@ Quick mention — most people know Jupyter. The `%autoreload` trick is the one w
 - **Tag important results**: the exact code that produced Figure 3, the final version before the deadline
 
 ```bash
-git checkout -b exp/nn-v2
+git checkout -b exp/nn-v2 # create a new branch
 git commit -m "Add dropout; accuracy 87.2% on val"
 git tag -a v1.0-baseline
 ```
@@ -459,6 +416,12 @@ Use tags like a time machine: `git diff v1.0-baseline HEAD` shows *exactly* what
 :::
 
 # Part 5 — Editing: vim, just enough
+
+## 
+- Why? 
+- Survive! 
+- Edit! 
+
 
 ## 
 ![https://xkcd.com/378/](images/real_programmers.png)
@@ -535,6 +498,11 @@ This is a cheat-sheet slide, not a lecture — it stays up while you talk. The g
 
 # Part 6 — Writing & diagrams
 
+## 
+- References with Zotero
+- Authoring with Quarto
+- Diagrams: excalidraw, mermaid, graphviz
+
 ## Zotero: references on autopilot
 
 [Zotero homepage](https://www.zotero.org)
@@ -584,20 +552,11 @@ flowchart LR
 
 ## AI assistants: be deliberate
 
+- **Any LLM chat**: paste into your code
 - **Copilot**: work directly from your IDE, in your project
 - **Agent harnesses**: OpenCode, pi.dev, Claude Code ... 
   - Give agents terminal access
   - Be mindful of permissions
-- **OpenRouter**: one API key -> hundreds of models, pay per token used
-  - use cheap models for boilerplate, strong models for hard bugs
-  - use strong models to draft instructions for cheaper models
-- Your data / your paper drafts: **read the terms before feeding your data into the machine**
-
-::: {.notes}
-Keep this balanced and short: the audience ranges from AI-allergic to AI-dependent. The cost math slide from the outline is available in the repo.
-:::
-
-## Don't know where to start? 
 
 ::: {.tip}
 
@@ -606,6 +565,12 @@ Describe your workflow to an AI chat, ask for suggestions on how to be more prod
 It's how I found out about many of these tools.
 
 :::
+
+## Cheap models, good models
+- **[OpenRouter](https://openrouter.ai/)**: one API key -> hundreds of models, pay per token used
+  - use cheap models for boilerplate, strong models for hard bugs
+  - use strong models to **draft instructions** for cheaper models
+- Your data / your paper drafts: **read the terms before feeding your data into the machine**
 
 
 ## The first draft of this talk? 
@@ -628,7 +593,3 @@ It's how I found out about many of these tools.
 - Slides & examples: `https://github.com/rcap107/tooling-talk`
   - `.zshrc.example`, `tmux.conf.example`, `pixi.toml`, `ruff.toml`…
 - Correction welcome: **Cunningham's Law is in effect** — tell me what I got wrong
-
-::: {.notes}
-End with the disclaimer from the start. Q&A. Have a terminal open in tmux, because the best demos happen when someone asks "can it do X?"
-:::
