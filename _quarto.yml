@@ -1,0 +1,20 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - "*.qmd"
+    - "!demo/**"
+
+website:
+  title: "Tools & tips I wish I knew when I started my PhD"
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 2
+    code-copy: true
+    code-fold: show
+    smooth-scroll: true
+    anchor-sections: true
+    highlight-style: a11y

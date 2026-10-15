@@ -46,14 +46,11 @@ css: styles.css
   - searching files
   - navigating directories
   - installing things
-  - "wait, which environment was this?"
 
 ## 
 
 ![https://xkcd.com/1691/](images/optimization.png)
 
-## Why bother?
-![https://xkcd.com/1205/](images/is_it_worth_the_time_2x.png)
 
 ## Why bother? Reproducibility! 
 
@@ -67,11 +64,21 @@ css: styles.css
 ## Why bother? Time savings! 
 
 - All time saved **compounds**: 10 min/day ≈ **40 hours/year**
+  - More time to work, or to party 💃
 - Reliable workflow and code -> less time wasted fixing avoidable problems 
 
 ::: {.tip}
-The goal is not more tools. The goal is **fewer keystrokes for the things you do constantly**.
+The goal is not more tools. The goal is **fewer keystrokes for the things you do all the time**.
 :::
+
+## Why bother?
+![https://xkcd.com/1205/](images/is_it_worth_the_time_2x.png)
+
+::: {.tip}
+
+I did the research, you reap the benefits!
+
+::: 
 
 ## Roadmap
 
@@ -92,11 +99,28 @@ Mention this is mermaid
 
 # Part 1 — The shell
 
-## 
+##
+```{mermaid}
+%%| fig-height: 3
+flowchart LR
+    A[The<br>shell] --> B[tmux: Remote &<br>long jobs]
+    B --> C[Reproducible<br>Python]
+    C --> D[Git]
+    D --> G[vim,<br>just enough]
+    G --> E[Writing &<br>diagrams]
+    E --> F[AI]
+
+    classDef highlight fill:#2a9d8f,stroke:#1d7a6e,color:#fff,font-weight:bold
+    classDef dim fill:#e9ecef,stroke:#ced4da,color:#868e96
+    class A highlight
+    class B,C,D,G,E,F dim
+```
+
+
 - .zshrc
 - Themes and plugins: Oh my zsh
-- Folder navigation: zoxide
 - Aliases
+- Folder navigation: zoxide
 - Searching the history
 - Search text: `ripgrep`
 - Read text: `bat`
@@ -108,15 +132,6 @@ Mention this is mermaid
 - [Oh My Zsh](https://ohmyz.sh): themes + plugins
   - `zsh-autocomplete`
 
-## Folder navigation with zoxide
-- Quick navigation with [zoxide](https://zoxide.org)
-
-```shell
-z PART_OF_PATH
-
-# list folders
-zoxide query -l 
-```
 
 ## Aliases
 
@@ -168,7 +183,6 @@ Pair it with `fzf`: `Ctrl+T` inserts any fuzzy-matched file path.
 bat script.py
 bat script.py --line-range 10:20
 bat -p script.py # plain output (better for copying)
-git diff | bat          # readable diffs
 ```
 
 ## Honorable mentions
@@ -184,7 +198,23 @@ Mac only:
 
 # Part 2 — Long jobs & remote machines
 
-## 
+##
+```{mermaid}
+%%| fig-height: 3
+flowchart LR
+    A[The<br>shell] --> B[tmux: Remote &<br>long jobs]
+    B --> C[Reproducible<br>Python]
+    C --> D[Git]
+    D --> G[vim,<br>just enough]
+    G --> E[Writing &<br>diagrams]
+    E --> F[AI]
+
+    classDef highlight fill:#2a9d8f,stroke:#1d7a6e,color:#fff,font-weight:bold
+    classDef dim fill:#e9ecef,stroke:#ced4da,color:#868e96
+    class B highlight
+    class A,C,D,G,E,F dim
+```
+
 - tmux
 - SSH configuration
 - rsync
@@ -232,7 +262,23 @@ rsync -avz --partial drago:~/big_output.h5 . # partial resumes the transfer if i
 
 # Part 3 — Reproducible Python
 
-## 
+##
+```{mermaid}
+%%| fig-height: 3
+flowchart LR
+    A[The<br>shell] --> B[tmux: Remote &<br>long jobs]
+    B --> C[Reproducible<br>Python]
+    C --> D[Git]
+    D --> G[vim,<br>just enough]
+    G --> E[Writing &<br>diagrams]
+    E --> F[AI]
+
+    classDef highlight fill:#2a9d8f,stroke:#1d7a6e,color:#fff,font-weight:bold
+    classDef dim fill:#e9ecef,stroke:#ced4da,color:#868e96
+    class C highlight
+    class B,A,D,G,E,F dim
+```
+
 - Pinning requirements
 - pixi: lockfile, multiple environments, tasks
 - uv: lightning fast environments
@@ -270,6 +316,26 @@ matplotlib==3.8.0
 ```
 
 
+## uv: gotta go fast 🏎️
+
+- pip/venv/pip-tools in one Rust binary, **10–100× faster**
+
+```bash
+uv init my-env && cd my-env
+uv add numpy pandas matplotlib
+uv run python analysis.py     # running from the `my-env` environment
+```
+
+- Replace `venv` and `pip`:
+
+```bash
+uv venv my-env
+source my-env/bin/activate
+uv pip install pandas scikit-learn
+```
+
+
+
 ## pixi: environments as files
 
 - One `pixi.toml` = python version + deps + **tasks**, cross-platform
@@ -305,27 +371,7 @@ pixi run train
 pixi run -e special train
 ```
 
-## uv: gotta go fast 🏎️
 
-- pip/venv/pip-tools in one Rust binary, **10–100× faster**
-
-```bash
-uv init my-env && cd my-env
-uv add numpy pandas matplotlib
-uv run python analysis.py     # running from the `my-env` environment
-```
-
-- Replace `venv` and `pip`:
-
-```bash
-uv venv my-env
-source my-env/bin/activate
-uv pip install pandas scikit-learn
-```
-
-::: {.tip}
-Rule of thumb: **uv** for pure-Python projects, **pixi** for CUDA, tasks, environment-specific operations.
-:::
 
 ## uv vs pixi
 
@@ -351,6 +397,9 @@ Rule of thumb: **uv** for pure-Python projects, **pixi** for CUDA, tasks, enviro
 
 :::
 
+::: {.tip}
+Rule of thumb: **uv** for pure-Python projects, **pixi** for CUDA, tasks, environment-specific operations.
+:::
 
 ## ruff: clean up your codebase
 
@@ -397,6 +446,26 @@ In a jupyter notebook:
 
 # Part 4 — Git for research
 
+
+## 
+```{mermaid}
+%%| fig-height: 3
+flowchart LR
+    A[The<br>shell] --> B[tmux: Remote &<br>long jobs]
+    B --> C[Reproducible<br>Python]
+    C --> D[Git]
+    D --> G[vim,<br>just enough]
+    G --> E[Writing &<br>diagrams]
+    E --> F[AI]
+
+    classDef highlight fill:#2a9d8f,stroke:#1d7a6e,color:#fff,font-weight:bold
+    classDef dim fill:#e9ecef,stroke:#ced4da,color:#868e96
+    class D highlight
+    class B,C,A,G,E,F dim
+```
+
+![https://www.xkcd.com/1296/](images/git_commit_2x.png)
+
 ## You're probably using git wrong (I did)
 
 - **Commit often**, message like you'll read it in 6 months
@@ -417,6 +486,23 @@ Use tags like a time machine: `git diff v1.0-baseline HEAD` shows *exactly* what
 
 # Part 5 — Editing: vim, just enough
 
+## 
+
+```{mermaid}
+%%| fig-height: 3
+flowchart LR
+    A[The<br>shell] --> B[tmux: Remote &<br>long jobs]
+    B --> C[Reproducible<br>Python]
+    C --> D[Git]
+    D --> G[vim,<br>just enough]
+    G --> E[Writing &<br>diagrams]
+    E --> F[AI]
+
+    classDef highlight fill:#2a9d8f,stroke:#1d7a6e,color:#fff,font-weight:bold
+    classDef dim fill:#e9ecef,stroke:#ced4da,color:#868e96
+    class G highlight
+    class B,C,D,A,E,F dim
+```
 ## 
 - Why? 
 - Survive! 
@@ -472,21 +558,6 @@ Rebind your `CAPS` key to `Esc`. You'll thank me later.
 This is a cheat-sheet slide, not a lecture — it stays up while you talk. The game changer is `c` + a motion ("change until", "change inside"): once people see `ci"`, they understand why vim people are insufferable.
 :::
 
-## 🎬 Demo 6 — vim speedrun {.demo}
-
-1. Open a file with 3 small bugs
-2. Fix them: `/` to find, `ci"` to change a string, `dd` a stray line, `p` paste
-3. `:wq` — hands never left the keyboard
-
-::: {.notes}
-**Demo script** — material: `demo/vim-demo/report.py` (3 deliberate bugs; answer key in `vim-demo/answer-key.md` — do NOT project it)
-- Run it → `FileNotFoundError`: fix the path with `ci"` (`dat/` → `data/`).
-- Run again → `NameError: late_pct`: `dd`, `k`, `p` to move the line up.
-- Run again → works, but spams `DEBUG` lines: `2dd` kills both.
-- Narrate verbs + nouns out loud. Optional flex: `:%s/DEBUG//gn` (dry-run count).
-- Close: "vimtutor, 30 minutes. Then the VSCode Vim extension."
-:::
-
 ## The pragmatic path
 
 - **Level 1 -- survive**: learn how to exit vim, and how to edit in a minimal environment
@@ -498,6 +569,23 @@ This is a cheat-sheet slide, not a lecture — it stays up while you talk. The g
 
 # Part 6 — Writing & diagrams
 
+
+## 
+```{mermaid}
+%%| fig-height: 3
+flowchart LR
+    A[The<br>shell] --> B[tmux: Remote &<br>long jobs]
+    B --> C[Reproducible<br>Python]
+    C --> D[Git]
+    D --> G[vim,<br>just enough]
+    G --> E[Writing &<br>diagrams]
+    E --> F[AI]
+
+    classDef highlight fill:#2a9d8f,stroke:#1d7a6e,color:#fff,font-weight:bold
+    classDef dim fill:#e9ecef,stroke:#ced4da,color:#868e96
+    class E highlight
+    class B,C,D,G,A,F dim
+```
 ## 
 - References with Zotero
 - Authoring with Quarto
@@ -547,8 +635,27 @@ flowchart LR
 
 # Part 7 — AI, briefly
 
+##
+```{mermaid}
+%%| fig-height: 3
+flowchart LR
+    A[The<br>shell] --> B[tmux: Remote &<br>long jobs]
+    B --> C[Reproducible<br>Python]
+    C --> D[Git]
+    D --> G[vim,<br>just enough]
+    G --> E[Writing &<br>diagrams]
+    E --> F[AI]
+
+    classDef highlight fill:#2a9d8f,stroke:#1d7a6e,color:#fff,font-weight:bold
+    classDef dim fill:#e9ecef,stroke:#ced4da,color:#868e96
+    class F highlight
+    class B,C,D,G,E,A dim
+```
+
+## 
 > *If you know the enemy and know yourself, you need not fear the result of a hundred battles.*
 > — **Sun Tzu**
+
 
 ## AI assistants: be deliberate
 
@@ -582,7 +689,7 @@ It's how I found out about many of these tools.
 
 ## TL;DR — if you only take 5 things
 
-1. **zoxide + fzf** in your shell
+1. **zoxide + aliases** in your shell
 2. **tmux** on every remote machine: persist long jobs, multi-screen support, copy/paste 
 3. **uv or pixi**: your environment *is* part of your methods
 4. **ruff**: improve your code quality with no effort
