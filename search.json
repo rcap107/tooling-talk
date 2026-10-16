@@ -18,7 +18,7 @@
     "href": "index.html#the-other-law",
     "title": "Tools & tips I wish I knew when I started my PhD",
     "section": "The other law",
-    "text": "The other law\n\nPremature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3%. — Knuth’s adage\n\n\nSame for tooling: don’t build a perfect pipeline on day 1.\nDo notice the critical 3%: the things you do 100×/day\n\nsearching files\nnavigating directories\ninstalling things\n“wait, which environment was this?”"
+    "text": "The other law\n\nPremature optimization is the root of all evil. Yet we should not pass up our opportunities in that critical 3%. — Knuth’s adage\n\n\nSame for tooling: don’t build a perfect pipeline on day 1.\nDo notice the critical 3%: the things you do 100×/day\n\nsearching files\nnavigating directories\ninstalling things"
   },
   {
     "objectID": "index.html#section",
@@ -26,13 +26,6 @@
     "title": "Tools & tips I wish I knew when I started my PhD",
     "section": "",
     "text": "https://xkcd.com/1691/"
-  },
-  {
-    "objectID": "index.html#why-bother",
-    "href": "index.html#why-bother",
-    "title": "Tools & tips I wish I knew when I started my PhD",
-    "section": "Why bother?",
-    "text": "Why bother?\n\nhttps://xkcd.com/1205/"
   },
   {
     "objectID": "index.html#why-bother-reproducibility",
@@ -46,7 +39,14 @@
     "href": "index.html#why-bother-time-savings",
     "title": "Tools & tips I wish I knew when I started my PhD",
     "section": "Why bother? Time savings!",
-    "text": "Why bother? Time savings!\n\nAll time saved compounds: 10 min/day ≈ 40 hours/year\nReliable workflow and code -&gt; less time wasted fixing avoidable problems\n\n\nThe goal is not more tools. The goal is fewer keystrokes for the things you do constantly."
+    "text": "Why bother? Time savings!\n\nAll time saved compounds: 10 min/day ≈ 40 hours/year\n\nMore time to work, or to party 💃\n\nReliable workflow and code -&gt; less time wasted fixing avoidable problems\n\n\nThe goal is not more tools. The goal is fewer keystrokes for the things you do all the time."
+  },
+  {
+    "objectID": "index.html#why-bother",
+    "href": "index.html#why-bother",
+    "title": "Tools & tips I wish I knew when I started my PhD",
+    "section": "Why bother?",
+    "text": "Why bother?\n\nhttps://xkcd.com/1205/\nI did the research, you reap the benefits!"
   },
   {
     "objectID": "index.html#roadmap",
@@ -60,7 +60,7 @@
     "href": "index.html#section-1",
     "title": "Tools & tips I wish I knew when I started my PhD",
     "section": "",
-    "text": ".zshrc\nThemes and plugins: Oh my zsh\nFolder navigation: zoxide\nAliases\nSearching the history\nSearch text: ripgrep\nRead text: bat"
+    "text": "flowchart LR\n    A[The&lt;br&gt;shell] --&gt; B[tmux: Remote &&lt;br&gt;long jobs]\n    B --&gt; C[Reproducible&lt;br&gt;Python]\n    C --&gt; D[Git]\n    D --&gt; G[vim,&lt;br&gt;just enough]\n    G --&gt; E[Writing &&lt;br&gt;diagrams]\n    E --&gt; F[AI]\n\n    classDef highlight fill:#2a9d8f,stroke:#1d7a6e,color:#fff,font-weight:bold\n    classDef dim fill:#e9ecef,stroke:#ced4da,color:#868e96\n    class A highlight\n    class B,C,D,G,E,F dim\n\n\n\n\n\n\n\n.zshrc\nThemes and plugins: Oh my zsh\nAliases\nFolder navigation: zoxide\nSearching the history\nSearch text: ripgrep\nRead text: bat"
   },
   {
     "objectID": "index.html#living-in-the-terminal-zsh",
@@ -68,13 +68,6 @@
     "title": "Tools & tips I wish I knew when I started my PhD",
     "section": "Living in the terminal: zsh",
     "text": "Living in the terminal: zsh\n\nRemote sessions means working from a terminal. Decorate it.\nCustomize your shell config: .zshrc/.bashrc\nOh My Zsh: themes + plugins\n\nzsh-autocomplete"
-  },
-  {
-    "objectID": "index.html#folder-navigation-with-zoxide",
-    "href": "index.html#folder-navigation-with-zoxide",
-    "title": "Tools & tips I wish I knew when I started my PhD",
-    "section": "Folder navigation with zoxide",
-    "text": "Folder navigation with zoxide\n\nQuick navigation with zoxide\n\nz PART_OF_PATH\n\n# list folders\nzoxide query -l"
   },
   {
     "objectID": "index.html#aliases",
@@ -102,7 +95,7 @@
     "href": "index.html#reading-things-bat",
     "title": "Tools & tips I wish I knew when I started my PhD",
     "section": "Reading things: bat",
-    "text": "Reading things: bat\n\ncat with syntax highlighting, line numbers, git gutter\n\nbat script.py\nbat script.py --line-range 10:20\nbat -p script.py # plain output (better for copying)\ngit diff | bat          # readable diffs"
+    "text": "Reading things: bat\n\ncat with syntax highlighting, line numbers, git gutter\n\nbat script.py\nbat script.py --line-range 10:20\nbat -p script.py # plain output (better for copying)"
   },
   {
     "objectID": "index.html#honorable-mentions",
@@ -116,7 +109,7 @@
     "href": "index.html#section-2",
     "title": "Tools & tips I wish I knew when I started my PhD",
     "section": "",
-    "text": "tmux\nSSH configuration\nrsync"
+    "text": "flowchart LR\n    A[The&lt;br&gt;shell] --&gt; B[tmux: Remote &&lt;br&gt;long jobs]\n    B --&gt; C[Reproducible&lt;br&gt;Python]\n    C --&gt; D[Git]\n    D --&gt; G[vim,&lt;br&gt;just enough]\n    G --&gt; E[Writing &&lt;br&gt;diagrams]\n    E --&gt; F[AI]\n\n    classDef highlight fill:#2a9d8f,stroke:#1d7a6e,color:#fff,font-weight:bold\n    classDef dim fill:#e9ecef,stroke:#ced4da,color:#868e96\n    class B highlight\n    class A,C,D,G,E,F dim\n\n\n\n\n\n\n\ntmux\nSSH configuration\nrsync"
   },
   {
     "objectID": "index.html#tmux-your-terminal-inside-your-terminal",
@@ -144,7 +137,7 @@
     "href": "index.html#section-3",
     "title": "Tools & tips I wish I knew when I started my PhD",
     "section": "",
-    "text": "Pinning requirements\npixi: lockfile, multiple environments, tasks\nuv: lightning fast environments\nruff: code formatting\nipython: a much better python console"
+    "text": "flowchart LR\n    A[The&lt;br&gt;shell] --&gt; B[tmux: Remote &&lt;br&gt;long jobs]\n    B --&gt; C[Reproducible&lt;br&gt;Python]\n    C --&gt; D[Git]\n    D --&gt; G[vim,&lt;br&gt;just enough]\n    G --&gt; E[Writing &&lt;br&gt;diagrams]\n    E --&gt; F[AI]\n\n    classDef highlight fill:#2a9d8f,stroke:#1d7a6e,color:#fff,font-weight:bold\n    classDef dim fill:#e9ecef,stroke:#ced4da,color:#868e96\n    class C highlight\n    class B,A,D,G,E,F dim\n\n\n\n\n\n\n\nPinning requirements\npixi: lockfile, multiple environments, tasks\nuv: lightning fast environments\nruff: code formatting\nipython: a much better python console"
   },
   {
     "objectID": "index.html#it-works-on-my-machine",
@@ -161,6 +154,13 @@
     "text": "Pinning: boring, essential\n\nnumpy&gt;=1.24 is not enough – numpy==1.24.3 is a necessity\n\nLater package versions may break/deprecate functions your code relies on\n\nLockfiles (uv.lock, pixi.lock) pin everything, transitively\nRule: requirements.txt pinned = the environment your results came from\n\nnumpy==1.24.3\npandas==2.1.1\nmatplotlib==3.8.0"
   },
   {
+    "objectID": "index.html#uv-gotta-go-fast",
+    "href": "index.html#uv-gotta-go-fast",
+    "title": "Tools & tips I wish I knew when I started my PhD",
+    "section": "uv: gotta go fast 🏎️",
+    "text": "uv: gotta go fast 🏎️\n\npip/venv/pip-tools in one Rust binary, 10–100× faster\n\nuv init my-env && cd my-env\nuv add numpy pandas matplotlib\nuv run python analysis.py     # running from the `my-env` environment\n\nReplace venv and pip:\n\nuv venv my-env\nsource my-env/bin/activate\nuv pip install pandas scikit-learn"
+  },
+  {
     "objectID": "index.html#pixi-environments-as-files",
     "href": "index.html#pixi-environments-as-files",
     "title": "Tools & tips I wish I knew when I started my PhD",
@@ -175,18 +175,11 @@
     "text": "pixi: define and run complex tasks\n[tasks]\ntrain = \"python train.py\"\ntest  = \"pytest tests/\"\n# Combine complex tasks in a single command, set env variables\nrender = {cmd = \"quarto render && cp -r slides/data/dataop_report/ _build/slides/data/\", env = { \"SKB_TABLE_REPORT_VERBOSITY\" = \"0\" }}\n# Have tasks depend on each other\nserve = { cmd = \"python -m http.server --directory _build 8000\", depends-on = [\"render\"]}\n# run the task `train` in the default environment\npixi run train\n# run the training in the environment `special`\npixi run -e special train"
   },
   {
-    "objectID": "index.html#uv-gotta-go-fast",
-    "href": "index.html#uv-gotta-go-fast",
-    "title": "Tools & tips I wish I knew when I started my PhD",
-    "section": "uv: gotta go fast 🏎️",
-    "text": "uv: gotta go fast 🏎️\n\npip/venv/pip-tools in one Rust binary, 10–100× faster\n\nuv init my-env && cd my-env\nuv add numpy pandas matplotlib\nuv run python analysis.py     # running from the `my-env` environment\n\nReplace venv and pip:\n\nuv venv my-env\nsource my-env/bin/activate\nuv pip install pandas scikit-learn\n\nRule of thumb: uv for pure-Python projects, pixi for CUDA, tasks, environment-specific operations."
-  },
-  {
     "objectID": "index.html#uv-vs-pixi",
     "href": "index.html#uv-vs-pixi",
     "title": "Tools & tips I wish I knew when I started my PhD",
     "section": "uv vs pixi",
-    "text": "uv vs pixi\n\n\nuv\n\nMy “main” environment which I use for most operations\nScratch, temporary environments to test specific package versions\n\n\npixi\n\nTesting different package combinations\nComplex sequences of tasks\nExecuting specific commands in specific environments"
+    "text": "uv vs pixi\n\n\nuv\n\nMy “main” environment which I use for most operations\nScratch, temporary environments to test specific package versions\n\n\npixi\n\nTesting different package combinations\nComplex sequences of tasks\nExecuting specific commands in specific environments\n\n\n\nRule of thumb: uv for pure-Python projects, pixi for CUDA, tasks, environment-specific operations."
   },
   {
     "objectID": "index.html#ruff-clean-up-your-codebase",
@@ -203,6 +196,13 @@
     "text": "ipython: a (much) better python console\n\n%history, ? and ?? for introspection\nTab completion everywhere, even dict keys\ncustom config – same setup every time you run the console\n\ndf.head?          # source of .head()\n%run myscript.py\nipython -i myscript.py # execute script, then interactive mode\n\nIn a jupyter notebook:\n\n%autoreload 2 – edit module, REPL sees it instantly"
   },
   {
+    "objectID": "index.html#section-4",
+    "href": "index.html#section-4",
+    "title": "Tools & tips I wish I knew when I started my PhD",
+    "section": "",
+    "text": "flowchart LR\n    A[The&lt;br&gt;shell] --&gt; B[tmux: Remote &&lt;br&gt;long jobs]\n    B --&gt; C[Reproducible&lt;br&gt;Python]\n    C --&gt; D[Git]\n    D --&gt; G[vim,&lt;br&gt;just enough]\n    G --&gt; E[Writing &&lt;br&gt;diagrams]\n    E --&gt; F[AI]\n\n    classDef highlight fill:#2a9d8f,stroke:#1d7a6e,color:#fff,font-weight:bold\n    classDef dim fill:#e9ecef,stroke:#ced4da,color:#868e96\n    class D highlight\n    class B,C,A,G,E,F dim\n\n\n\n\n\n\n\nhttps://www.xkcd.com/1296/"
+  },
+  {
     "objectID": "index.html#youre-probably-using-git-wrong-i-did",
     "href": "index.html#youre-probably-using-git-wrong-i-did",
     "title": "Tools & tips I wish I knew when I started my PhD",
@@ -210,15 +210,22 @@
     "text": "You’re probably using git wrong (I did)\n\nCommit often, message like you’ll read it in 6 months\nCommit even more often if you use AI agents to work on your code\n\nThey tend to break more things than you think (or want)\n\nBranches are free: experiments never touch main\nTag important results: the exact code that produced Figure 3, the final version before the deadline\n\ngit checkout -b exp/nn-v2 # create a new branch\ngit commit -m \"Add dropout; accuracy 87.2% on val\"\ngit tag -a v1.0-baseline\n\nUse tags like a time machine: git diff v1.0-baseline HEAD shows exactly what changed between the two results in your paper."
   },
   {
-    "objectID": "index.html#section-4",
-    "href": "index.html#section-4",
+    "objectID": "index.html#section-5",
+    "href": "index.html#section-5",
+    "title": "Tools & tips I wish I knew when I started my PhD",
+    "section": "",
+    "text": "flowchart LR\n    A[The&lt;br&gt;shell] --&gt; B[tmux: Remote &&lt;br&gt;long jobs]\n    B --&gt; C[Reproducible&lt;br&gt;Python]\n    C --&gt; D[Git]\n    D --&gt; G[vim,&lt;br&gt;just enough]\n    G --&gt; E[Writing &&lt;br&gt;diagrams]\n    E --&gt; F[AI]\n\n    classDef highlight fill:#2a9d8f,stroke:#1d7a6e,color:#fff,font-weight:bold\n    classDef dim fill:#e9ecef,stroke:#ced4da,color:#868e96\n    class G highlight\n    class B,C,D,A,E,F dim"
+  },
+  {
+    "objectID": "index.html#section-6",
+    "href": "index.html#section-6",
     "title": "Tools & tips I wish I knew when I started my PhD",
     "section": "",
     "text": "Why?\nSurvive!\nEdit!"
   },
   {
-    "objectID": "index.html#section-5",
-    "href": "index.html#section-5",
+    "objectID": "index.html#section-7",
+    "href": "index.html#section-7",
     "title": "Tools & tips I wish I knew when I started my PhD",
     "section": "",
     "text": "https://xkcd.com/378/"
@@ -238,13 +245,6 @@
     "text": "Vim survival 101\n\nModes: i insert · Esc normal · v visual\nMove: h j k l · w b words · 0 $ line ends · gg G file ends\nEdit: dd delete line · yy copy line · p paste · u undo · Ctrl-r redo\nSearch: /pattern then n\nCommands: : followed by a letter – write changes with :w\nActually exiting vim: exit with :q, without saving with :q!, write and exit :wq\n\nThe magic: ciw change inner word · ci\" inside quotes · ci( inside parens\n\nRebind your CAPS key to Esc. You’ll thank me later.\n\n\nThis is a cheat-sheet slide, not a lecture — it stays up while you talk. The game changer is c + a motion (“change until”, “change inside”): once people see ci\", they understand why vim people are insufferable."
   },
   {
-    "objectID": "index.html#demo-6-vim-speedrun",
-    "href": "index.html#demo-6-vim-speedrun",
-    "title": "Tools & tips I wish I knew when I started my PhD",
-    "section": "🎬 Demo 6 — vim speedrun",
-    "text": "🎬 Demo 6 — vim speedrun\n\nOpen a file with 3 small bugs\nFix them: / to find, ci\" to change a string, dd a stray line, p paste\n:wq — hands never left the keyboard\n\n\nDemo script — material: demo/vim-demo/report.py (3 deliberate bugs; answer key in vim-demo/answer-key.md — do NOT project it) - Run it → FileNotFoundError: fix the path with ci\" (dat/ → data/). - Run again → NameError: late_pct: dd, k, p to move the line up. - Run again → works, but spams DEBUG lines: 2dd kills both. - Narrate verbs + nouns out loud. Optional flex: :%s/DEBUG//gn (dry-run count). - Close: “vimtutor, 30 minutes. Then the VSCode Vim extension.”"
-  },
-  {
     "objectID": "index.html#the-pragmatic-path",
     "href": "index.html#the-pragmatic-path",
     "title": "Tools & tips I wish I knew when I started my PhD",
@@ -252,8 +252,15 @@
     "text": "The pragmatic path\n\nLevel 1 – survive: learn how to exit vim, and how to edit in a minimal environment\nLevel 2 – take it home: vim keybindings in your editor\n\nVSCode: Vim extension · PyCharm: IdeaVim\nkeep the IDE, learn the muscle memory\n(it’s how I picked up the habit!)\n\nLevel 3 — rabbit hole: neovim & more"
   },
   {
-    "objectID": "index.html#section-6",
-    "href": "index.html#section-6",
+    "objectID": "index.html#section-8",
+    "href": "index.html#section-8",
+    "title": "Tools & tips I wish I knew when I started my PhD",
+    "section": "",
+    "text": "flowchart LR\n    A[The&lt;br&gt;shell] --&gt; B[tmux: Remote &&lt;br&gt;long jobs]\n    B --&gt; C[Reproducible&lt;br&gt;Python]\n    C --&gt; D[Git]\n    D --&gt; G[vim,&lt;br&gt;just enough]\n    G --&gt; E[Writing &&lt;br&gt;diagrams]\n    E --&gt; F[AI]\n\n    classDef highlight fill:#2a9d8f,stroke:#1d7a6e,color:#fff,font-weight:bold\n    classDef dim fill:#e9ecef,stroke:#ced4da,color:#868e96\n    class E highlight\n    class B,C,D,G,A,F dim"
+  },
+  {
+    "objectID": "index.html#section-9",
+    "href": "index.html#section-9",
     "title": "Tools & tips I wish I knew when I started my PhD",
     "section": "",
     "text": "References with Zotero\nAuthoring with Quarto\nDiagrams: excalidraw, mermaid, graphviz"
@@ -278,6 +285,20 @@
     "title": "Tools & tips I wish I knew when I started my PhD",
     "section": "Diagrams as text: Mermaid & Graphviz",
     "text": "Diagrams as text: Mermaid & Graphviz\n\nVersionable, diffable, and fast to edit\n\n\n\n\n\n\nflowchart LR\n    A[Read papers] --&gt; B{Idea?}\n    B --&gt;|no| A\n    B --&gt;|yes| C[Experiment]\n    C --&gt; D{Works?}\n    D --&gt;|no| B\n    D --&gt;|yes| E[Write it up]\n\n\n\n\n\n\n\nExcalidraw when you need to think freehand; Mermaid/Graphviz when the diagram needs to live in the repo."
+  },
+  {
+    "objectID": "index.html#section-10",
+    "href": "index.html#section-10",
+    "title": "Tools & tips I wish I knew when I started my PhD",
+    "section": "",
+    "text": "flowchart LR\n    A[The&lt;br&gt;shell] --&gt; B[tmux: Remote &&lt;br&gt;long jobs]\n    B --&gt; C[Reproducible&lt;br&gt;Python]\n    C --&gt; D[Git]\n    D --&gt; G[vim,&lt;br&gt;just enough]\n    G --&gt; E[Writing &&lt;br&gt;diagrams]\n    E --&gt; F[AI]\n\n    classDef highlight fill:#2a9d8f,stroke:#1d7a6e,color:#fff,font-weight:bold\n    classDef dim fill:#e9ecef,stroke:#ced4da,color:#868e96\n    class F highlight\n    class B,C,D,G,E,A dim"
+  },
+  {
+    "objectID": "index.html#section-11",
+    "href": "index.html#section-11",
+    "title": "Tools & tips I wish I knew when I started my PhD",
+    "section": "",
+    "text": "If you know the enemy and know yourself, you need not fear the result of a hundred battles. — Sun Tzu"
   },
   {
     "objectID": "index.html#ai-assistants-be-deliberate",
@@ -305,7 +326,7 @@
     "href": "index.html#tldr-if-you-only-take-5-things",
     "title": "Tools & tips I wish I knew when I started my PhD",
     "section": "TL;DR — if you only take 5 things",
-    "text": "TL;DR — if you only take 5 things\n\nzoxide + fzf in your shell\ntmux on every remote machine: persist long jobs, multi-screen support, copy/paste\nuv or pixi: your environment is part of your methods\nruff: improve your code quality with no effort\ngit tags: trace back to the exact commits months down the line"
+    "text": "TL;DR — if you only take 5 things\n\nzoxide + aliases in your shell\ntmux on every remote machine: persist long jobs, multi-screen support, copy/paste\nuv or pixi: your environment is part of your methods\nruff: improve your code quality with no effort\ngit tags: trace back to the exact commits months down the line"
   },
   {
     "objectID": "index.html#steal-this",

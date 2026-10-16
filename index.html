@@ -258,7 +258,6 @@ Riccardo Cappuzzo
 <li>searching files</li>
 <li>navigating directories</li>
 <li>installing things</li>
-<li>“wait, which environment was this?”</li>
 </ul></li>
 </ul>
 </section>
@@ -266,10 +265,6 @@ Riccardo Cappuzzo
 <h2></h2>
 
 <img data-src="images/optimization.png" class="r-stretch quarto-figure-center"><p class="caption">https://xkcd.com/1691/</p></section>
-<section id="why-bother" class="slide level2">
-<h2>Why bother?</h2>
-
-<img data-src="images/is_it_worth_the_time_2x.png" class="r-stretch quarto-figure-center"><p class="caption">https://xkcd.com/1205/</p></section>
 <section id="why-bother-reproducibility" class="slide level2">
 <h2>Why bother? Reproducibility!</h2>
 <ul>
@@ -288,11 +283,21 @@ Riccardo Cappuzzo
 <section id="why-bother-time-savings" class="slide level2">
 <h2>Why bother? Time savings!</h2>
 <ul>
-<li>All time saved <strong>compounds</strong>: 10 min/day ≈ <strong>40 hours/year</strong></li>
+<li>All time saved <strong>compounds</strong>: 10 min/day ≈ <strong>40 hours/year</strong>
+<ul>
+<li>More time to work, or to party 💃</li>
+</ul></li>
 <li>Reliable workflow and code -&gt; less time wasted fixing avoidable problems</li>
 </ul>
 <div class="tip">
-<p>The goal is not more tools. The goal is <strong>fewer keystrokes for the things you do constantly</strong>.</p>
+<p>The goal is not more tools. The goal is <strong>fewer keystrokes for the things you do all the time</strong>.</p>
+</div>
+</section>
+<section id="why-bother" class="slide level2">
+<h2>Why bother?</h2>
+
+<img data-src="images/is_it_worth_the_time_2x.png" class="r-stretch quarto-figure-center"><p class="caption">https://xkcd.com/1205/</p><div class="tip">
+<p>I did the research, you reap the benefits!</p>
 </div>
 </section>
 <section id="roadmap" class="slide level2">
@@ -336,11 +341,34 @@ Riccardo Cappuzzo
 </section>
 <section id="section-1" class="slide level2">
 <h2></h2>
+<div class="cell" data-reveal="true" data-fig-height="3" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    A[The&lt;br&gt;shell] --&gt; B[tmux: Remote &amp;&lt;br&gt;long jobs]
+    B --&gt; C[Reproducible&lt;br&gt;Python]
+    C --&gt; D[Git]
+    D --&gt; G[vim,&lt;br&gt;just enough]
+    G --&gt; E[Writing &amp;&lt;br&gt;diagrams]
+    E --&gt; F[AI]
+
+    classDef highlight fill:#2a9d8f,stroke:#1d7a6e,color:#fff,font-weight:bold
+    classDef dim fill:#e9ecef,stroke:#ced4da,color:#868e96
+    class A highlight
+    class B,C,D,G,E,F dim
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <ul>
 <li>.zshrc</li>
 <li>Themes and plugins: Oh my zsh</li>
-<li>Folder navigation: zoxide</li>
 <li>Aliases</li>
+<li>Folder navigation: zoxide</li>
 <li>Searching the history</li>
 <li>Search text: <code>ripgrep</code></li>
 <li>Read text: <code>bat</code></li>
@@ -357,16 +385,6 @@ Riccardo Cappuzzo
 </ul></li>
 </ul>
 </section>
-<section id="folder-navigation-with-zoxide" class="slide level2">
-<h2>Folder navigation with zoxide</h2>
-<ul>
-<li>Quick navigation with <a href="https://zoxide.org">zoxide</a></li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a></a>z PART_OF_PATH</span>
-<span id="cb1-2"><a></a></span>
-<span id="cb1-3"><a></a># list folders</span>
-<span id="cb1-4"><a></a>zoxide query -l </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
 <section id="aliases" class="slide level2">
 <h2>Aliases</h2>
 <ul>
@@ -374,28 +392,28 @@ Riccardo Cappuzzo
 <li>No need to remember the actual command</li>
 <li>Much faster to type</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a></a><span class="bu">alias</span> ll=<span class="st">'ls -lah'</span></span>
-<span id="cb2-2"><a></a><span class="bu">alias</span> gst=<span class="st">'git status'</span></span>
-<span id="cb2-3"><a></a><span class="bu">alias</span> python=<span class="st">'python3'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a></a><span class="bu">alias</span> ll=<span class="st">'ls -lah'</span></span>
+<span id="cb1-2"><a></a><span class="bu">alias</span> gst=<span class="st">'git status'</span></span>
+<span id="cb1-3"><a></a><span class="bu">alias</span> python=<span class="st">'python3'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Some aliases I use on a daily basis:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a></a><span class="bu">alias</span> dc=<span class="st">"pixi run -e doc build-doc-quick"</span></span>
-<span id="cb3-2"><a></a><span class="bu">alias</span> odo=<span class="st">"open ~/work/skrub/doc/_build/html/index.html"</span></span>
-<span id="cb3-3"><a></a><span class="bu">alias</span> dtest=<span class="st">'pixi run -e dev pytest -doctest-modules skrub skrub/_docs/modules --ignore-glob="*/test_*.py" --doctest-glob="*.rst"'</span> <span class="at">--ignore-glob</span><span class="op">=</span><span class="st">"doc/*"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a></a><span class="bu">alias</span> dc=<span class="st">"pixi run -e doc build-doc-quick"</span></span>
+<span id="cb2-2"><a></a><span class="bu">alias</span> odo=<span class="st">"open ~/work/skrub/doc/_build/html/index.html"</span></span>
+<span id="cb2-3"><a></a><span class="bu">alias</span> dtest=<span class="st">'pixi run -e dev pytest -doctest-modules skrub skrub/_docs/modules --ignore-glob="*/test_*.py" --doctest-glob="*.rst"'</span> <span class="at">--ignore-glob</span><span class="op">=</span><span class="st">"doc/*"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="shell-history" class="slide level2">
 <h2>Shell history</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a></a>Ctrl+R </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a></a>Ctrl+R </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="finding-things-ripgrep" class="slide level2">
 <h2>Finding things: ripgrep</h2>
 <ul>
 <li>rip <code>grep</code> for a reason: <strong>fast</strong>, respects <code>.gitignore</code>, colourful</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a></a><span class="ex">rg</span> <span class="st">"def calculate_mean"</span>            <span class="co"># search the repo</span></span>
-<span id="cb5-2"><a></a><span class="ex">rg</span> <span class="at">-i</span> <span class="st">"todo"</span>                       <span class="co"># case-insensitive</span></span>
-<span id="cb5-3"><a></a><span class="ex">rg</span> <span class="st">"import numpy"</span> <span class="at">--type</span> py        <span class="co"># only Python files</span></span>
-<span id="cb5-4"><a></a><span class="ex">rg</span> <span class="st">"error"</span> <span class="at">-B</span> 3 <span class="at">-A</span> 3               <span class="co"># with context</span></span>
-<span id="cb5-5"><a></a><span class="ex">rg</span> <span class="st">"TODO|FIXME"</span> <span class="at">--count</span>            <span class="co"># how many things do I have left to do?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a></a><span class="ex">rg</span> <span class="st">"def calculate_mean"</span>            <span class="co"># search the repo</span></span>
+<span id="cb4-2"><a></a><span class="ex">rg</span> <span class="at">-i</span> <span class="st">"todo"</span>                       <span class="co"># case-insensitive</span></span>
+<span id="cb4-3"><a></a><span class="ex">rg</span> <span class="st">"import numpy"</span> <span class="at">--type</span> py        <span class="co"># only Python files</span></span>
+<span id="cb4-4"><a></a><span class="ex">rg</span> <span class="st">"error"</span> <span class="at">-B</span> 3 <span class="at">-A</span> 3               <span class="co"># with context</span></span>
+<span id="cb4-5"><a></a><span class="ex">rg</span> <span class="st">"TODO|FIXME"</span> <span class="at">--count</span>            <span class="co"># how many things do I have left to do?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="tip">
 <p>Pair it with <code>fzf</code>: <code>Ctrl+T</code> inserts any fuzzy-matched file path.</p>
 </div>
@@ -405,10 +423,9 @@ Riccardo Cappuzzo
 <ul>
 <li><code>cat</code> with syntax highlighting, line numbers, git gutter</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a></a><span class="ex">bat</span> script.py</span>
-<span id="cb6-2"><a></a><span class="ex">bat</span> script.py <span class="at">--line-range</span> 10:20</span>
-<span id="cb6-3"><a></a><span class="ex">bat</span> <span class="at">-p</span> script.py <span class="co"># plain output (better for copying)</span></span>
-<span id="cb6-4"><a></a><span class="fu">git</span> diff <span class="kw">|</span> <span class="ex">bat</span>          <span class="co"># readable diffs</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a></a><span class="ex">bat</span> script.py</span>
+<span id="cb5-2"><a></a><span class="ex">bat</span> script.py <span class="at">--line-range</span> 10:20</span>
+<span id="cb5-3"><a></a><span class="ex">bat</span> <span class="at">-p</span> script.py <span class="co"># plain output (better for copying)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="honorable-mentions" class="slide level2">
 <h2>Honorable mentions</h2>
@@ -430,6 +447,29 @@ Riccardo Cappuzzo
 </section>
 <section id="section-2" class="slide level2">
 <h2></h2>
+<div class="cell" data-reveal="true" data-fig-height="3" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    A[The&lt;br&gt;shell] --&gt; B[tmux: Remote &amp;&lt;br&gt;long jobs]
+    B --&gt; C[Reproducible&lt;br&gt;Python]
+    C --&gt; D[Git]
+    D --&gt; G[vim,&lt;br&gt;just enough]
+    G --&gt; E[Writing &amp;&lt;br&gt;diagrams]
+    E --&gt; F[AI]
+
+    classDef highlight fill:#2a9d8f,stroke:#1d7a6e,color:#fff,font-weight:bold
+    classDef dim fill:#e9ecef,stroke:#ced4da,color:#868e96
+    class B highlight
+    class A,C,D,G,E,F dim
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <ul>
 <li>tmux</li>
 <li>SSH configuration</li>
@@ -443,9 +483,9 @@ Riccardo Cappuzzo
 <li>Split panes: run training + watch logs + edit, in one window</li>
 <li>Copy from the terminal to your OS clipboard</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a></a><span class="ex">tmux</span> new <span class="at">-s</span> training     <span class="co"># start a session</span></span>
-<span id="cb7-2"><a></a><span class="ex">Ctrl-b</span> d                 <span class="co"># detach (job keeps running!)</span></span>
-<span id="cb7-3"><a></a><span class="ex">tmux</span> attach <span class="at">-t</span> training  <span class="co"># reattach from anywhere</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a></a><span class="ex">tmux</span> new <span class="at">-s</span> training     <span class="co"># start a session</span></span>
+<span id="cb6-2"><a></a><span class="ex">Ctrl-b</span> d                 <span class="co"># detach (job keeps running!)</span></span>
+<span id="cb6-3"><a></a><span class="ex">tmux</span> attach <span class="at">-t</span> training  <span class="co"># reattach from anywhere</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="ssh-without-pain" class="slide level2">
 <h2>SSH without pain</h2>
@@ -453,15 +493,15 @@ Riccardo Cappuzzo
 <li>Key pairs (<code>ed25519</code>) → no more passwords</li>
 <li><code>~/.ssh/config</code> → nicknames for clusters</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource ssh-config number-lines code-with-copy"><code class="sourceCode"><span id="cb8-1"><a></a>Host inria</span>
-<span id="cb8-2"><a></a>     hostname ssh.saclay.inria.fr</span>
-<span id="cb8-3"><a></a>     user rcappuzz</span>
-<span id="cb8-4"><a></a></span>
-<span id="cb8-5"><a></a>Host drago</span>
-<span id="cb8-6"><a></a>    hostname %h.saclay.inria.fr</span>
-<span id="cb8-7"><a></a>    ProxyCommand ssh inria /usr/bin/nc %h %p</span>
-<span id="cb8-8"><a></a>    user rcappuzz</span>
-<span id="cb8-9"><a></a>    ForwardAgent yes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource ssh-config number-lines code-with-copy"><code class="sourceCode"><span id="cb7-1"><a></a>Host inria</span>
+<span id="cb7-2"><a></a>     hostname ssh.saclay.inria.fr</span>
+<span id="cb7-3"><a></a>     user rcappuzz</span>
+<span id="cb7-4"><a></a></span>
+<span id="cb7-5"><a></a>Host drago</span>
+<span id="cb7-6"><a></a>    hostname %h.saclay.inria.fr</span>
+<span id="cb7-7"><a></a>    ProxyCommand ssh inria /usr/bin/nc %h %p</span>
+<span id="cb7-8"><a></a>    user rcappuzz</span>
+<span id="cb7-9"><a></a>    ForwardAgent yes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Then simply: <code>ssh margaret</code></p>
 </section>
 <section id="rsync-scp" class="slide level2">
@@ -470,8 +510,8 @@ Riccardo Cappuzzo
 <li>Copies <strong>only what changed</strong></li>
 <li>Resumes copying from when it was interrupted</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a></a><span class="fu">rsync</span> <span class="at">-avz</span> <span class="at">--exclude</span><span class="op">=</span><span class="st">'*.npy'</span> results/ drago:~/project/results/</span>
-<span id="cb9-2"><a></a><span class="fu">rsync</span> <span class="at">-avz</span> <span class="at">--partial</span> drago:~/big_output.h5 . <span class="co"># partial resumes the transfer if it drops</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a></a><span class="fu">rsync</span> <span class="at">-avz</span> <span class="at">--exclude</span><span class="op">=</span><span class="st">'*.npy'</span> results/ drago:~/project/results/</span>
+<span id="cb8-2"><a></a><span class="fu">rsync</span> <span class="at">-avz</span> <span class="at">--partial</span> drago:~/big_output.h5 . <span class="co"># partial resumes the transfer if it drops</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section>
 <section>
 <section id="part-3-reproducible-python" class="title-slide slide level1 center">
@@ -480,6 +520,29 @@ Riccardo Cappuzzo
 </section>
 <section id="section-3" class="slide level2">
 <h2></h2>
+<div class="cell" data-reveal="true" data-fig-height="3" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    A[The&lt;br&gt;shell] --&gt; B[tmux: Remote &amp;&lt;br&gt;long jobs]
+    B --&gt; C[Reproducible&lt;br&gt;Python]
+    C --&gt; D[Git]
+    D --&gt; G[vim,&lt;br&gt;just enough]
+    G --&gt; E[Writing &amp;&lt;br&gt;diagrams]
+    E --&gt; F[AI]
+
+    classDef highlight fill:#2a9d8f,stroke:#1d7a6e,color:#fff,font-weight:bold
+    classDef dim fill:#e9ecef,stroke:#ced4da,color:#868e96
+    class C highlight
+    class B,A,D,G,E,F dim
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <ul>
 <li>Pinning requirements</li>
 <li>pixi: lockfile, multiple environments, tasks</li>
@@ -512,9 +575,24 @@ Riccardo Cappuzzo
 <li>Lockfiles (<code>uv.lock</code>, <code>pixi.lock</code>) pin <strong>everything</strong>, transitively</li>
 <li>Rule: <em><code>requirements.txt</code> pinned = the environment your results came from</em></li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb10-1"><a></a>numpy==1.24.3</span>
-<span id="cb10-2"><a></a>pandas==2.1.1</span>
-<span id="cb10-3"><a></a>matplotlib==3.8.0</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb9-1"><a></a>numpy==1.24.3</span>
+<span id="cb9-2"><a></a>pandas==2.1.1</span>
+<span id="cb9-3"><a></a>matplotlib==3.8.0</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="uv-gotta-go-fast" class="slide level2">
+<h2>uv: gotta go fast 🏎️</h2>
+<ul>
+<li>pip/venv/pip-tools in one Rust binary, <strong>10–100× faster</strong></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a></a><span class="ex">uv</span> init my-env <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> my-env</span>
+<span id="cb10-2"><a></a><span class="ex">uv</span> add numpy pandas matplotlib</span>
+<span id="cb10-3"><a></a><span class="ex">uv</span> run python analysis.py     <span class="co"># running from the `my-env` environment</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Replace <code>venv</code> and <code>pip</code>:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a></a><span class="ex">uv</span> venv my-env</span>
+<span id="cb11-2"><a></a><span class="bu">source</span> my-env/bin/activate</span>
+<span id="cb11-3"><a></a><span class="ex">uv</span> pip install pandas scikit-learn</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="pixi-environments-as-files" class="slide level2">
 <h2>pixi: environments as files</h2>
@@ -522,46 +600,28 @@ Riccardo Cappuzzo
 <li>One <code>pixi.toml</code> = python version + deps + <strong>tasks</strong>, cross-platform</li>
 <li>Conda ecosystem (CUDA, system libs) with a lockfile</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb11-1"><a></a><span class="kw">[dependencies]</span></span>
-<span id="cb11-2"><a></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"3.11.*"</span></span>
-<span id="cb11-3"><a></a><span class="dt">numpy</span>  <span class="op">=</span> <span class="st">"&gt;=1.24,&lt;2"</span></span>
-<span id="cb11-4"><a></a><span class="dt">ruff</span>   <span class="op">=</span> <span class="st">"&gt;=0.1"</span></span>
-<span id="cb11-5"><a></a></span>
-<span id="cb11-6"><a></a><span class="kw">[feature.special.dependencies]</span></span>
-<span id="cb11-7"><a></a><span class="co"># Dependencies for a specific baseline</span></span>
-<span id="cb11-8"><a></a><span class="dt">...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb12-1"><a></a><span class="kw">[dependencies]</span></span>
+<span id="cb12-2"><a></a><span class="dt">python</span> <span class="op">=</span> <span class="st">"3.11.*"</span></span>
+<span id="cb12-3"><a></a><span class="dt">numpy</span>  <span class="op">=</span> <span class="st">"&gt;=1.24,&lt;2"</span></span>
+<span id="cb12-4"><a></a><span class="dt">ruff</span>   <span class="op">=</span> <span class="st">"&gt;=0.1"</span></span>
+<span id="cb12-5"><a></a></span>
+<span id="cb12-6"><a></a><span class="kw">[feature.special.dependencies]</span></span>
+<span id="cb12-7"><a></a><span class="co"># Dependencies for a specific baseline</span></span>
+<span id="cb12-8"><a></a><span class="dt">...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="pixi-define-and-run-complex-tasks" class="slide level2">
 <h2>pixi: define and run complex tasks</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb12-1"><a></a><span class="kw">[tasks]</span></span>
-<span id="cb12-2"><a></a><span class="dt">train</span> <span class="op">=</span> <span class="st">"python train.py"</span></span>
-<span id="cb12-3"><a></a><span class="dt">test</span>  <span class="op">=</span> <span class="st">"pytest tests/"</span></span>
-<span id="cb12-4"><a></a><span class="co"># Combine complex tasks in a single command, set env variables</span></span>
-<span id="cb12-5"><a></a><span class="dt">render</span> <span class="op">=</span> <span class="op">{</span><span class="dt">cmd</span><span class="op"> =</span> <span class="st">"quarto render &amp;&amp; cp -r slides/data/dataop_report/ _build/slides/data/"</span><span class="op">, </span><span class="dt">env</span><span class="op"> =</span> <span class="op">{ </span><span class="dt">"SKB_TABLE_REPORT_VERBOSITY"</span><span class="op"> =</span> <span class="st">"0"</span><span class="op"> }}</span></span>
-<span id="cb12-6"><a></a><span class="co"># Have tasks depend on each other</span></span>
-<span id="cb12-7"><a></a><span class="dt">serve</span> <span class="op">=</span> <span class="op">{ </span><span class="dt">cmd</span><span class="op"> =</span> <span class="st">"python -m http.server --directory _build 8000"</span><span class="op">, </span><span class="dt">depends-on</span><span class="op"> =</span> <span class="op">[</span><span class="st">"render"</span><span class="op">]}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a></a><span class="co"># run the task `train` in the default environment</span></span>
-<span id="cb13-2"><a></a><span class="ex">pixi</span> run train</span>
-<span id="cb13-3"><a></a><span class="co"># run the training in the environment `special`</span></span>
-<span id="cb13-4"><a></a><span class="ex">pixi</span> run <span class="at">-e</span> special train</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="uv-gotta-go-fast" class="slide level2">
-<h2>uv: gotta go fast 🏎️</h2>
-<ul>
-<li>pip/venv/pip-tools in one Rust binary, <strong>10–100× faster</strong></li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a></a><span class="ex">uv</span> init my-env <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> my-env</span>
-<span id="cb14-2"><a></a><span class="ex">uv</span> add numpy pandas matplotlib</span>
-<span id="cb14-3"><a></a><span class="ex">uv</span> run python analysis.py     <span class="co"># running from the `my-env` environment</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li>Replace <code>venv</code> and <code>pip</code>:</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a></a><span class="ex">uv</span> venv my-env</span>
-<span id="cb15-2"><a></a><span class="bu">source</span> my-env/bin/activate</span>
-<span id="cb15-3"><a></a><span class="ex">uv</span> pip install pandas scikit-learn</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="tip">
-<p>Rule of thumb: <strong>uv</strong> for pure-Python projects, <strong>pixi</strong> for CUDA, tasks, environment-specific operations.</p>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb13-1"><a></a><span class="kw">[tasks]</span></span>
+<span id="cb13-2"><a></a><span class="dt">train</span> <span class="op">=</span> <span class="st">"python train.py"</span></span>
+<span id="cb13-3"><a></a><span class="dt">test</span>  <span class="op">=</span> <span class="st">"pytest tests/"</span></span>
+<span id="cb13-4"><a></a><span class="co"># Combine complex tasks in a single command, set env variables</span></span>
+<span id="cb13-5"><a></a><span class="dt">render</span> <span class="op">=</span> <span class="op">{</span><span class="dt">cmd</span><span class="op"> =</span> <span class="st">"quarto render &amp;&amp; cp -r slides/data/dataop_report/ _build/slides/data/"</span><span class="op">, </span><span class="dt">env</span><span class="op"> =</span> <span class="op">{ </span><span class="dt">"SKB_TABLE_REPORT_VERBOSITY"</span><span class="op"> =</span> <span class="st">"0"</span><span class="op"> }}</span></span>
+<span id="cb13-6"><a></a><span class="co"># Have tasks depend on each other</span></span>
+<span id="cb13-7"><a></a><span class="dt">serve</span> <span class="op">=</span> <span class="op">{ </span><span class="dt">cmd</span><span class="op"> =</span> <span class="st">"python -m http.server --directory _build 8000"</span><span class="op">, </span><span class="dt">depends-on</span><span class="op"> =</span> <span class="op">[</span><span class="st">"render"</span><span class="op">]}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a></a><span class="co"># run the task `train` in the default environment</span></span>
+<span id="cb14-2"><a></a><span class="ex">pixi</span> run train</span>
+<span id="cb14-3"><a></a><span class="co"># run the training in the environment `special`</span></span>
+<span id="cb14-4"><a></a><span class="ex">pixi</span> run <span class="at">-e</span> special train</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="uv-vs-pixi" class="slide level2">
 <h2>uv vs pixi</h2>
@@ -580,6 +640,9 @@ Riccardo Cappuzzo
 <li>Executing specific commands in specific environments</li>
 </ul>
 </div></div>
+<div class="tip">
+<p>Rule of thumb: <strong>uv</strong> for pure-Python projects, <strong>pixi</strong> for CUDA, tasks, environment-specific operations.</p>
+</div>
 </section>
 <section id="ruff-clean-up-your-codebase" class="slide level2">
 <h2>ruff: clean up your codebase</h2>
@@ -587,14 +650,14 @@ Riccardo Cappuzzo
 <li>Linting and formatting in one tool</li>
 <li>Replaces flake8, isort, black, pylint – and it’s <strong>instant</strong></li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb16-1"><a></a><span class="kw">[tool.ruff]</span></span>
-<span id="cb16-2"><a></a><span class="dt">line-length</span> <span class="op">=</span> <span class="dv">88</span></span>
-<span id="cb16-3"><a></a></span>
-<span id="cb16-4"><a></a><span class="kw">[tool.ruff.lint]</span></span>
-<span id="cb16-5"><a></a><span class="dt">select</span> <span class="op">=</span> <span class="op">[</span><span class="st">"E"</span><span class="op">,</span> <span class="st">"F"</span><span class="op">,</span> <span class="st">"I"</span><span class="op">,</span> <span class="st">"N"</span><span class="op">,</span> <span class="st">"UP"</span><span class="op">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a></a><span class="ex">ruff</span> check .          <span class="co"># find problems</span></span>
-<span id="cb17-2"><a></a><span class="ex">ruff</span> check <span class="at">--fix</span> .    <span class="co"># fix them</span></span>
-<span id="cb17-3"><a></a><span class="ex">ruff</span> format .         <span class="co"># black-style formatting</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb15-1"><a></a><span class="kw">[tool.ruff]</span></span>
+<span id="cb15-2"><a></a><span class="dt">line-length</span> <span class="op">=</span> <span class="dv">88</span></span>
+<span id="cb15-3"><a></a></span>
+<span id="cb15-4"><a></a><span class="kw">[tool.ruff.lint]</span></span>
+<span id="cb15-5"><a></a><span class="dt">select</span> <span class="op">=</span> <span class="op">[</span><span class="st">"E"</span><span class="op">,</span> <span class="st">"F"</span><span class="op">,</span> <span class="st">"I"</span><span class="op">,</span> <span class="st">"N"</span><span class="op">,</span> <span class="st">"UP"</span><span class="op">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a></a><span class="ex">ruff</span> check .          <span class="co"># find problems</span></span>
+<span id="cb16-2"><a></a><span class="ex">ruff</span> check <span class="at">--fix</span> .    <span class="co"># fix them</span></span>
+<span id="cb16-3"><a></a><span class="ex">ruff</span> format .         <span class="co"># black-style formatting</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="ipython-a-much-better-python-console" class="slide level2">
 <h2>ipython: a (much) better python console</h2>
@@ -603,9 +666,9 @@ Riccardo Cappuzzo
 <li>Tab completion <em>everywhere</em>, even dict keys</li>
 <li>custom config – same setup every time you run the console</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a></a>df.head?          <span class="co"># source of .head()</span></span>
-<span id="cb18-2"><a></a><span class="op">%</span>run myscript.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb19-1"><a></a>ipython -i myscript.py # execute script, then interactive mode</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a></a>df.head?          <span class="co"># source of .head()</span></span>
+<span id="cb17-2"><a></a><span class="op">%</span>run myscript.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb18-1"><a></a>ipython -i myscript.py # execute script, then interactive mode</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="tip">
 <p>In a jupyter notebook:</p>
 <ul>
@@ -618,6 +681,33 @@ Riccardo Cappuzzo
 <h1>Part 4 — Git for research</h1>
 
 </section>
+<section id="section-4" class="slide level2">
+<h2></h2>
+<div class="cell" data-reveal="true" data-fig-height="3" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    A[The&lt;br&gt;shell] --&gt; B[tmux: Remote &amp;&lt;br&gt;long jobs]
+    B --&gt; C[Reproducible&lt;br&gt;Python]
+    C --&gt; D[Git]
+    D --&gt; G[vim,&lt;br&gt;just enough]
+    G --&gt; E[Writing &amp;&lt;br&gt;diagrams]
+    E --&gt; F[AI]
+
+    classDef highlight fill:#2a9d8f,stroke:#1d7a6e,color:#fff,font-weight:bold
+    classDef dim fill:#e9ecef,stroke:#ced4da,color:#868e96
+    class D highlight
+    class B,C,A,G,E,F dim
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+
+<img data-src="images/git_commit_2x.png" class="r-stretch quarto-figure-center"><p class="caption">https://www.xkcd.com/1296/</p></section>
 <section id="youre-probably-using-git-wrong-i-did" class="slide level2">
 <h2>You’re probably using git wrong (I did)</h2>
 <ul>
@@ -629,9 +719,9 @@ Riccardo Cappuzzo
 <li>Branches are free: experiments never touch <code>main</code></li>
 <li><strong>Tag important results</strong>: the exact code that produced Figure 3, the final version before the deadline</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a></a><span class="fu">git</span> checkout <span class="at">-b</span> exp/nn-v2 <span class="co"># create a new branch</span></span>
-<span id="cb20-2"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add dropout; accuracy 87.2% on val"</span></span>
-<span id="cb20-3"><a></a><span class="fu">git</span> tag <span class="at">-a</span> v1.0-baseline</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a></a><span class="fu">git</span> checkout <span class="at">-b</span> exp/nn-v2 <span class="co"># create a new branch</span></span>
+<span id="cb19-2"><a></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Add dropout; accuracy 87.2% on val"</span></span>
+<span id="cb19-3"><a></a><span class="fu">git</span> tag <span class="at">-a</span> v1.0-baseline</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="tip">
 <p>Use tags like a time machine: <code>git diff v1.0-baseline HEAD</code> shows <em>exactly</em> what changed between the two results in your paper.</p>
 </div>
@@ -641,7 +731,33 @@ Riccardo Cappuzzo
 <h1>Part 5 — Editing: vim, just enough</h1>
 
 </section>
-<section id="section-4" class="slide level2">
+<section id="section-5" class="slide level2">
+<h2></h2>
+<div class="cell" data-reveal="true" data-fig-height="3" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    A[The&lt;br&gt;shell] --&gt; B[tmux: Remote &amp;&lt;br&gt;long jobs]
+    B --&gt; C[Reproducible&lt;br&gt;Python]
+    C --&gt; D[Git]
+    D --&gt; G[vim,&lt;br&gt;just enough]
+    G --&gt; E[Writing &amp;&lt;br&gt;diagrams]
+    E --&gt; F[AI]
+
+    classDef highlight fill:#2a9d8f,stroke:#1d7a6e,color:#fff,font-weight:bold
+    classDef dim fill:#e9ecef,stroke:#ced4da,color:#868e96
+    class G highlight
+    class B,C,D,A,E,F dim
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="section-6" class="slide level2">
 <h2></h2>
 <ul>
 <li>Why?</li>
@@ -649,7 +765,7 @@ Riccardo Cappuzzo
 <li>Edit!</li>
 </ul>
 </section>
-<section id="section-5" class="slide level2">
+<section id="section-7" class="slide level2">
 <h2></h2>
 
 <img data-src="images/real_programmers.png" class="r-stretch quarto-figure-center"><p class="caption">https://xkcd.com/378/</p></section>
@@ -713,27 +829,6 @@ Riccardo Cappuzzo
           display:block!important;
       }</style></aside>
 </section>
-<section id="demo-6-vim-speedrun" class="slide level2 demo scrollable">
-<h2>🎬 Demo 6 — vim speedrun</h2>
-<ol type="1">
-<li>Open a file with 3 small bugs</li>
-<li>Fix them: <code>/</code> to find, <code>ci"</code> to change a string, <code>dd</code> a stray line, <code>p</code> paste</li>
-<li><code>:wq</code> — hands never left the keyboard</li>
-</ol>
-<aside class="notes">
-<p><strong>Demo script</strong> — material: <code>demo/vim-demo/report.py</code> (3 deliberate bugs; answer key in <code>vim-demo/answer-key.md</code> — do NOT project it) - Run it → <code>FileNotFoundError</code>: fix the path with <code>ci"</code> (<code>dat/</code> → <code>data/</code>). - Run again → <code>NameError: late_pct</code>: <code>dd</code>, <code>k</code>, <code>p</code> to move the line up. - Run again → works, but spams <code>DEBUG</code> lines: <code>2dd</code> kills both. - Narrate verbs + nouns out loud. Optional flex: <code>:%s/DEBUG//gn</code> (dry-run count). - Close: “vimtutor, 30 minutes. Then the VSCode Vim extension.”</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
 <section id="the-pragmatic-path" class="slide level2">
 <h2>The pragmatic path</h2>
 <ul>
@@ -752,7 +847,33 @@ Riccardo Cappuzzo
 <h1>Part 6 — Writing &amp; diagrams</h1>
 
 </section>
-<section id="section-6" class="slide level2">
+<section id="section-8" class="slide level2">
+<h2></h2>
+<div class="cell" data-reveal="true" data-fig-height="3" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    A[The&lt;br&gt;shell] --&gt; B[tmux: Remote &amp;&lt;br&gt;long jobs]
+    B --&gt; C[Reproducible&lt;br&gt;Python]
+    C --&gt; D[Git]
+    D --&gt; G[vim,&lt;br&gt;just enough]
+    G --&gt; E[Writing &amp;&lt;br&gt;diagrams]
+    E --&gt; F[AI]
+
+    classDef highlight fill:#2a9d8f,stroke:#1d7a6e,color:#fff,font-weight:bold
+    classDef dim fill:#e9ecef,stroke:#ced4da,color:#868e96
+    class E highlight
+    class B,C,D,G,A,F dim
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="section-9" class="slide level2">
 <h2></h2>
 <ul>
 <li>References with Zotero</li>
@@ -821,6 +942,36 @@ Riccardo Cappuzzo
 <section>
 <section id="part-7-ai-briefly" class="title-slide slide level1 center">
 <h1>Part 7 — AI, briefly</h1>
+
+</section>
+<section id="section-10" class="slide level2">
+<h2></h2>
+<div class="cell" data-reveal="true" data-fig-height="3" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    A[The&lt;br&gt;shell] --&gt; B[tmux: Remote &amp;&lt;br&gt;long jobs]
+    B --&gt; C[Reproducible&lt;br&gt;Python]
+    C --&gt; D[Git]
+    D --&gt; G[vim,&lt;br&gt;just enough]
+    G --&gt; E[Writing &amp;&lt;br&gt;diagrams]
+    E --&gt; F[AI]
+
+    classDef highlight fill:#2a9d8f,stroke:#1d7a6e,color:#fff,font-weight:bold
+    classDef dim fill:#e9ecef,stroke:#ced4da,color:#868e96
+    class F highlight
+    class B,C,D,G,E,A dim
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="section-11" class="slide level2">
+<h2></h2>
 <blockquote>
 <p><em>If you know the enemy and know yourself, you need not fear the result of a hundred battles.</em> — <strong>Sun Tzu</strong></p>
 </blockquote>
@@ -864,7 +1015,7 @@ Riccardo Cappuzzo
 <section id="tldr-if-you-only-take-5-things" class="slide level2 scrollable">
 <h2>TL;DR — if you only take 5 things</h2>
 <ol type="1">
-<li><strong>zoxide + fzf</strong> in your shell</li>
+<li><strong>zoxide + aliases</strong> in your shell</li>
 <li><strong>tmux</strong> on every remote machine: persist long jobs, multi-screen support, copy/paste</li>
 <li><strong>uv or pixi</strong>: your environment <em>is</em> part of your methods</li>
 <li><strong>ruff</strong>: improve your code quality with no effort</li>
@@ -1169,7 +1320,7 @@ Riccardo Cappuzzo
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp('/' + window.location.host + '/');
+            var filterRegex = new RegExp("https:\/\/rcap107\.github\.io\/tooling-talk\/");
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }
